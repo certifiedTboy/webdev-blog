@@ -1,0 +1,20 @@
+.btn{
+    background-color: #EF233C;
+    color: aliceblue;
+}
+
+.formBorder {
+margin-top: 120px;
+margin-bottom: 120px;
+}
+
+.togglePara {
+    font-weight: 600;
+}
+
+.toggleBtn {
+    border: none;
+    background: none;
+    font-weight: 600;
+}
+

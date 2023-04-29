@@ -1,0 +1,88 @@
+.user_details {
+    margin-top: 50px;
+}
+
+.profile_image {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+}
+
+.user_details h3 {
+    font-weight: 700;
+    font-size: 20px;
+    color: #07212e;
+    margin-top: 10px;
+}
+
+.upload_btn {
+ position: absolute;
+margin-left: 70px;
+margin-top: -20px;
+margin-bottom: 20px;
+color:#07212e
+
+}
+
+.edit_btn {
+    font-weight: 600;
+    font-size: 14px;
+    color: rgb(185, 2, 2);
+}
+
+.following h4{
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 18px;
+    color: #07212e;
+    margin-bottom: 20px;
+}
+
+.following p {
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.following img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.following svg {
+    cursor: pointer;
+    float: right;
+}
+
+
+.user_story {
+    margin-top: 50px;
+}
+
+.user_story h2 {
+    color: #07212e;
+    font-weight: 700;
+    font-size: 35px;
+    display: inline;
+}
+
+.user_story svg {
+    cursor: pointer;
+    float: right;
+    display: inline;
+    margin-right: 150px;
+    margin-top: 20px;
+}
+
+.nav_border nav {
+    padding-left: 0px !important;
+}
+
+
+.card_body {
+    padding: 5px !important;
+    font-weight: 500;
+}
+
+
+

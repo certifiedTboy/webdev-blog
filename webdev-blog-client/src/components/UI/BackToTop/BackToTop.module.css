@@ -1,0 +1,17 @@
+.fadeOut{
+    opacity:0;
+    width:0;
+    height:0;
+    transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
+
+}
+.fadeIn{
+    opacity:1;
+    transition: width 0.5s, height 0.5s, opacity 0.5s 0.5s;
+
+}
+
+.background {
+    background-color: white !important;
+    color: #e4e002 !important;
+}
