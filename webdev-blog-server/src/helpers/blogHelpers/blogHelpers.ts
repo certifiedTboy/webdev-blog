@@ -129,7 +129,6 @@ class BlogHelpers {
   static async getBlogByTitle(title: string): Promise<any> {
     try {
       const foundBlog = await Blog.findOne({ title });
-
       if (!foundBlog) {
         throw new NotFoundError("blog not found");
       }

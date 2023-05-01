@@ -1,8 +1,18 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
+import { getBlogs } from "../../Blogs/blogRedux/BlogActions";
 import classes from "./GeneralProfile.module.css";
 const Details = ({ userData }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const onGetAllBlogs = async () => {
+      dispatch(getBlogs());
+    };
+
+    onGetAllBlogs();
+  }, []);
+
   const { user } = useSelector((state) => state.login);
   const { blogs } = useSelector((state) => state.blog);
   const params = useParams();
@@ -29,7 +39,7 @@ const Details = ({ userData }) => {
 
           {blogs.map((blog) => {
             return (
-              <div className="card mb-2">
+              <div className="card mb-2" key={blog._id.toString()}>
                 <div className="card-header">{blog.title}</div>
                 <div className={`${classes.card_body} card-body text-center`}>
                   <a style={{ float: "left" }} href="#">

@@ -24,8 +24,9 @@ const PreviewModal = ({ title, content, onShowModal }) => {
           </Modal.Body>
 
           <Modal.Footer>
-            <button onClick={onShowModal}>Close</button>
-            <button>Publish</button>
+            <button className="btn-warning" onClick={onShowModal}>
+              Close
+            </button>
           </Modal.Footer>
         </Modal.Dialog>
       </div>

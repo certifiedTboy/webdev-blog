@@ -89,7 +89,6 @@ class BlogControllers {
     next: NextFunction
   ): Promise<any> {
     const { title } = req.params;
-
     try {
       const blog = await BlogHelpers.getBlogByTitle(title);
 
@@ -116,7 +115,6 @@ class BlogControllers {
     next: NextFunction
   ): Promise<any> {
     const { blogId } = req.params;
-console.log(blogId)
     try {
       const blog = await BlogHelpers.checkThatBlogExistById(blogId);
 

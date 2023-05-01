@@ -41,6 +41,11 @@ const Layout = (props) => {
       title: `WebDev - blogs/${pathname.split("/")[2]}`,
       metaDescription: `${pathname.split("/")[2]}`,
     };
+  } else if (pathname === `${pathname}`) {
+    titleData = {
+      title: `WebDev - Edit-Blog`,
+      metaDescription: `Edit blog`,
+    };
   } else if (pathname === `/w-d/${pathname.split("/")[2]}`) {
     titleData = {
       title: `WebDev - webdev/${pathname.split("/")[2]}`,

@@ -13,6 +13,12 @@ router.get(
   BlogAuthorization.checkBlogOwnership,
   BlogControllers.getBlogById
 );
+router.get(
+  "/edit/check-that-blog-exist/:title",
+  Authenticate,
+  BlogAuthorization.checkBlogOwnershipByTitle,
+  BlogControllers.getABlog
+);
 router.post(
   "/create-blog",
   Authenticate,

@@ -61,3 +61,47 @@
   float: left;
   width: 40%;
 }
+
+@media only screen and (max-width: 470px) {
+  .App-header {
+    font-size: 15px !important;
+  }
+
+  .preview-text {
+    font-size: 12px;
+  }
+
+  .preview-btn {
+    font-size: 8px;
+font-weight: 600;
+  }
+
+  .save-btn{
+    font-size: 8px;
+font-weight: 600;
+  }
+
+  .saveas-btn {
+font-size: 8px;
+font-weight: 600;
+  }
+
+  .publish-btn {
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .form-control{
+    font-size: 10px;
+  }
+}
+
+
+@media only screen and (max-width: 342px) {
+ 
+  .preview-text {
+    font-size: 9px;
+  }
+
+
+}

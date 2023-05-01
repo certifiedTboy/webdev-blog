@@ -27,6 +27,28 @@ class BlogAuthorization {
       next(error);
     }
   }
+
+  /**
+   * @method checkBlogOWnershipByTitle
+   * @static
+   * @returns {string}
+   */
+   static async checkBlogOwnershipByTitle(req: any, res: Response, next: NextFunction) {
+    const userId = req.user.id;
+    const { title } = req.params;
+    try {
+      const blog = await BlogHelpers.getBlogByTitle(title);
+      if (blog.user.userId.toString() !== userId) {
+        throw new UnauthorizedError(
+          "you do not have permission to carry out this action"
+        );
+      } 
+
+      next()
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default BlogAuthorization;

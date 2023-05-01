@@ -37,6 +37,33 @@ export const getABlog = async (title) => {
       return { error: data.message };
     }
 
+    console.log(data);
+    return data;
+  } catch (error) {
+    return { error: "something went wrong" };
+  }
+};
+
+export const checkBlogAlreadyCreated = async (title) => {
+  const authToken = getAccessToken();
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/blog/edit/check-that-blog-exist/${title}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "applicationn/json",
+          authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { error: data.message };
+    }
+
     return data;
   } catch (error) {
     return { error: "something went wrong" };
