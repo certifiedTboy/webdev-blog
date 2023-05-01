@@ -84,5 +84,37 @@ color:#07212e
     font-weight: 500;
 }
 
+.action_btn {
+    border: none;
+    background: none;
+}
+
+.delete_btn {
+    color: rgb(209, 5, 5);
+    border: none;
+    background: none;
+    font-weight: 500;
+}
+
+.confirm_btn {
+    color: rgb(250, 242, 242);
+    background: rgb(209, 5, 5);
+    font-size: 15px;
+    border: none;
+    font-weight: 500;
+}
+
+.email_input {
+    width: 200px;
+}
+
+.btn_container {
+    display: inline;
+}
+
+.input_container {
+    display: inline;
+    margin-left: 20px;
+}
 
 
