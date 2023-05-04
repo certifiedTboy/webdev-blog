@@ -131,19 +131,11 @@ class UserHelper {
    * @returns {Promise<User>}
    */
   static async checkThatUserExistByUsername(username: string) {
-    const foundUser = await User.findOne({ username });
+    const foundUser = await User.findOne({ username }).select("-password");
 
     if (foundUser) {
-      const userData = {
-        userId: foundUser._id,
-        username: foundUser.username,
-        email: foundUser.email,
-        firstName: foundUser.firstName,
-        lastName: foundUser.lastName,
-        about: foundUser.about,
-        profilePicture: foundUser.profilePicture,
-      };
-      return userData;
+      
+      return foundUser;
     } else {
       throw new NotFoundError("user does not exist");
     }

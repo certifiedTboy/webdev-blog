@@ -9,7 +9,6 @@ import classes from "./GeneralProfile.module.css";
 const UserDetails = ({ userData }) => {
   const { success } = useSelector((state) => state.request);
   const { otherUserProfilePicture } = useSelector((state) => state.profile);
-
   const { user } = useSelector((state) => state.login);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -90,6 +89,9 @@ const UserDetails = ({ userData }) => {
             {userData.firstName} {userData.lastName}
           </h3>
         </div>
+        <div>
+          <p>{userData.email}</p>
+        </div>
 
         <div className="mt-3 mb-5">
           {user && userData.username === user.username && (
@@ -99,72 +101,36 @@ const UserDetails = ({ userData }) => {
           )}
         </div>
 
-        <div className={classes.following}>
+        {/* <div className={classes.following}>
           <h4>following</h4>
           <div>
-            <div className="mb-3">
-              <a href="/profile">
-                <img
-                  className="d-inline"
-                  src="https://media.istockphoto.com/id/1344688156/photo/portrait-of-a-man-using-a-computer-in-a-modern-office.jpg?b=1&s=170667a&w=0&k=20&c=AAVVOvN9uY1Rd_0QsWb8WvBN-4VSUdCORiZx51s5OLc="
-                  alt="profile_picture"
-                />
-                <p className="d-inline">Segesson </p>
-              </a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-            </div>
-
-            <div className="mb-3">
-              <a href="/profile">
-                <img
-                  className="d-inline"
-                  src="https://media.istockphoto.com/id/1344688156/photo/portrait-of-a-man-using-a-computer-in-a-modern-office.jpg?b=1&s=170667a&w=0&k=20&c=AAVVOvN9uY1Rd_0QsWb8WvBN-4VSUdCORiZx51s5OLc="
-                  alt="profile_picture"
-                />
-                <p className="d-inline">Abiodun</p>
-              </a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-            </div>
-            <div className="mb-3">
-              <a href="/profile">
-                <img
-                  className="d-inline"
-                  src="https://media.istockphoto.com/id/1344688156/photo/portrait-of-a-man-using-a-computer-in-a-modern-office.jpg?b=1&s=170667a&w=0&k=20&c=AAVVOvN9uY1Rd_0QsWb8WvBN-4VSUdCORiZx51s5OLc="
-                  alt="profile_picture"
-                />
-                <p className="d-inline">Obioma</p>
-              </a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-            </div>
+            {following.length > 0 &&
+              following.map((follow) => {
+                return (
+                  <div className="mb-3">
+                    <a href="/profile">
+                      <img
+                        className="d-inline"
+                        src={`http://localhost:3001/${follow.data.profilePicture}`}
+                        alt="profile_picture"
+                      />
+                      <p className="d-inline">{follow.data.username} </p>
+                    </a>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-three-dots"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                    </svg>
+                  </div>
+                );
+              })}
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -117,4 +117,39 @@ color:#07212e
     margin-left: 20px;
 }
 
+.follow_data {
+    font-weight: 600;
+  }
 
+  .link {
+    font-weight: 600;
+  }
+
+  .about{
+overflow: hidden !important;
+font: inherit !important
+  }
+
+@media only screen and (max-width: 590px) {
+   .nav_tab a {
+font-size: 10px;
+padding: 0px !important;
+margin-right: 5px;
+   }
+
+   .nav_icon {
+    margin-right: 0px !important;
+   }
+
+   .about {
+    align-content: center;
+   }
+  }
+  
+/*   
+  @media only screen and (max-width: 342px) {
+   
+   
+  } */
+
+ 

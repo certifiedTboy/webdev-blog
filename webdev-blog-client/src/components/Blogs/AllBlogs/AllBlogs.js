@@ -31,11 +31,16 @@ const AllBlogs = () => {
     };
   }, []);
 
+  useEffect(() => {}, []);
+
   let currentRecords;
   let nPages;
-
-  if (blogs.length > 0) {
-    currentRecords = blogs.slice(indexOfFirstRecord, indexOfLastRecord);
+  const publishedBlogs = blogs.filter((blog) => blog.isPublished);
+  if (publishedBlogs.length > 0) {
+    currentRecords = publishedBlogs.slice(
+      indexOfFirstRecord,
+      indexOfLastRecord
+    );
     nPages = Math.ceil(blogs.length / recordsPerPage);
   } else {
     currentRecords = [];
@@ -47,7 +52,7 @@ const AllBlogs = () => {
   if (windowWidth > 761) {
     blogContent = currentRecords.map((blog) => {
       return (
-        <div className="col-lg-4 col-md-6" key={blog.id}>
+        <div className="col-lg-4 col-md-6" key={blog._id.toString()}>
           <div className="single-latest-news">
             <div className="latest-news-bg news-bg-1"></div>
 
@@ -79,7 +84,7 @@ const AllBlogs = () => {
   } else {
     blogContent = blogs.map((blog) => {
       return (
-        <div className="col-lg-4 col-md-6" key={blog.id}>
+        <div className="col-lg-4 col-md-6" key={blog._id.toString()}>
           <div className="single-latest-news">
             <div className="latest-news-bg news-bg-1"></div>
 
@@ -119,7 +124,7 @@ const AllBlogs = () => {
             {isLoading && <MiniLoader />}
             {errorMessage && (
               <>
-                <div class="alert alert-danger text-center" role="alert">
+                <div className="alert alert-danger text-center" role="alert">
                   {errorMessage.error}
                 </div>
                 <a className="btn btn-warning" href="/blogs">

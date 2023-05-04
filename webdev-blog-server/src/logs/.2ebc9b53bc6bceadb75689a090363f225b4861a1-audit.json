@@ -6,21 +6,6 @@
     "auditLog": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\.2ebc9b53bc6bceadb75689a090363f225b4861a1-audit.json",
     "files": [
         {
-            "date": 1681600957505,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-04-16.log",
-            "hash": "43ee1696a0a9f461a4997aa2d2aeddbda504b21584c02156c475a408e7128c7d"
-        },
-        {
-            "date": 1681729977567,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-04-17.log",
-            "hash": "9e2ed00c16f8bcbe4004c43f6c9e9b7e921cd6ed5571f040e0f4e817dc131df2"
-        },
-        {
-            "date": 1681812740531,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-04-18.log",
-            "hash": "15e651170c1f9e21ad630bf45e3a504666a132d62d5198b1620330ac6e9011fc"
-        },
-        {
             "date": 1681975429774,
             "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-04-20.log",
             "hash": "e995c9a18c879a3678f640c03258faaa698f11345a9392cbc005411f4a3a2bea"
@@ -64,6 +49,21 @@
             "date": 1682809233022,
             "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-04-30.log",
             "hash": "82c066a995424f2f41bf84184ca32e6411e5e7d6b4f07b58724a2ede65fb4358"
+        },
+        {
+            "date": 1682980147235,
+            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-01.log",
+            "hash": "4649d321e821992b6fdd4ad271c0be5676de1e7610c01f96ef34fcf60532cf0b"
+        },
+        {
+            "date": 1682984726728,
+            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-02.log",
+            "hash": "004f65df13480b7277131e709aa659d3a534cb91afd650cc4ecf0ed881baf505"
+        },
+        {
+            "date": 1683128372690,
+            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-03.log",
+            "hash": "244406eace8950678fb44847ce12a7a302bbd5c6800d73297802fa8e0320eb8b"
         }
     ],
     "hashType": "sha256"

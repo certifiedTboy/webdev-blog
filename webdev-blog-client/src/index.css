@@ -50,7 +50,7 @@ a:focus {
   max-width: 1366px;
 }
 
-.btn {
+/* .btn {
   padding: 12px 25px;
   font-size: 14px;
   font-weight: 600;
@@ -70,7 +70,7 @@ a:focus {
   background: transparent;
   box-shadow: inset 0 0 0 0 #EF233C;
   border-color: #EF233C;
-}
+} */
 
 #loader {
   position: fixed;

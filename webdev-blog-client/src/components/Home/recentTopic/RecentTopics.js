@@ -22,8 +22,11 @@ const RecentTopic = () => {
   let { blogs, isLoading, errorMessage } = useSelector((state) => state.blog);
 
   useEffect(() => {
-    if (blogs.length > 0) {
-      setRecentBlogs(blogs.slice(indexOfFirstRecord, indexOfLastRecord));
+    const publishedBlogs = blogs.filter((blog) => blog.isPublished);
+    if (publishedBlogs.length > 0) {
+      setRecentBlogs(
+        publishedBlogs.slice(indexOfFirstRecord, indexOfLastRecord)
+      );
     }
   }, [blogs, indexOfFirstRecord, indexOfLastRecord]);
 

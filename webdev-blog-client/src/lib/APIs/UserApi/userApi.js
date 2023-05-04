@@ -140,3 +140,25 @@ export const getUserPicture = async (username) => {
     return { error: "something went wrong" };
   }
 };
+
+export const followUser = async (username) => {
+  const authToken = getAccessToken();
+  try {
+    const response = await fetch(`${API_BASE_URL}/user/follow/${username}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { error: data.message };
+    }
+
+    return data;
+  } catch (error) {
+    return { error: "something went wrong" };
+  }
+};

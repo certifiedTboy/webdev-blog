@@ -1,13 +1,62 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { Interweave } from "interweave";
+import { useSelector, useDispatch } from "react-redux";
 import Moment from "react-moment";
+import { NavLink } from "react-router-dom";
+import { onFollowUser } from "../../../lib/generaRequestRedux/FollowActions";
+import { getUserByUsername } from "../../../lib/APIs/UserApi/userApi";
+import { transform } from "./Transform";
 import RelatedPosts from "./RelatedPosts";
 import KeyWords from "./KeyWords";
 import "./SingleBlog.css";
-import { NavLink } from "react-router-dom";
-import { transform } from "./Transform";
 
-const SingleBlog = ({ blog, errorMessage }) => {
+const SingleBlog = ({ blog }) => {
+  const [following, setFollowing] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const [userIsFollowing, setUserIsFollowing] = useState(false);
+  const [blogOwner, setBlogOwner] = useState("");
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    if (blog.user) {
+      setBlogOwner(blog.user.username);
+    }
+  }, [blog.user]);
+
+  const followUserHandler = async () => {
+    await dispatch(onFollowUser(blog.user.username));
+  };
+
+  const { follow_loading, follow_success, follow_failed } = useSelector(
+    (state) => state.follow
+  );
+
+  useEffect(() => {
+    const onGetUserByUsername = async () => {
+      const response = await getUserByUsername(blogOwner);
+      if (!response.error) {
+        setFollowers(response.data.followers);
+        return setFollowing(response.data.following);
+      }
+    };
+
+    onGetUserByUsername();
+  }, [blogOwner, follow_success, follow_failed]);
+
+  useEffect(() => {
+    const userFollow = followers.find(
+      (follow) => follow.username === user.username
+    );
+
+    if (userFollow) {
+      return setUserIsFollowing(true);
+    } else {
+      return setUserIsFollowing(false);
+    }
+  }, [followers]);
+
   return (
     <div className="mt-150 mb-150 mt-5">
       <div className="container">
@@ -15,10 +64,8 @@ const SingleBlog = ({ blog, errorMessage }) => {
           <div className="col-lg-8">
             <div className="single-article-section">
               <div className="single-article-text">
-                {/* <div className="single-artcile-bg"></div> */}
-
                 <h2>{blog.title}</h2>
-                <p className="blog-meta">
+                <p className="blog-meta d-inline mr-2">
                   {blog.user && (
                     <span className="author">
                       <i className="fas fa-user"></i>
@@ -28,6 +75,7 @@ const SingleBlog = ({ blog, errorMessage }) => {
                       </NavLink>
                     </span>
                   )}
+
                   <span className="date">
                     <i className="fas fa-calendar"></i>{" "}
                     <Moment className="meta-own" fromNow>
@@ -35,6 +83,31 @@ const SingleBlog = ({ blog, errorMessage }) => {
                     </Moment>
                   </span>
                 </p>
+                <div className="mb-4">
+                  <button type="button" class="btn-primary mr-2">
+                    following{" "}
+                    <span className={`badge text-bg-secondary`}>
+                      {following.length}
+                    </span>
+                  </button>
+
+                  <button type="button" class="btn-primary">
+                    followers{" "}
+                    <span className="badge text-bg-secondary">
+                      {followers.length}
+                    </span>
+                  </button>
+
+                  {user && blogOwner !== user.username && (
+                    <button
+                      type="submit"
+                      className="btn-success d-inline ml-2"
+                      onClick={followUserHandler}
+                    >
+                      {userIsFollowing ? "unfollow" : "follow"}
+                    </button>
+                  )}
+                </div>
 
                 {blog.content && (
                   <Fragment>
@@ -136,7 +209,7 @@ const SingleBlog = ({ blog, errorMessage }) => {
             <div className="sidebar-section">
               <div className="recent-posts">
                 <h4>Recent Posts</h4>
-                <RelatedPosts />
+                {blog.user && <RelatedPosts username={blog.user.username} />}
               </div>
 
               <div className="tag-section">

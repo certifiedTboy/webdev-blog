@@ -23,6 +23,7 @@ const ProfilePage = () => {
       dispatch(requestLoading());
       try {
         const response = await getUserByUsername(username);
+
         if (response.error) {
           return dispatch(requestFailed(response.error));
         }

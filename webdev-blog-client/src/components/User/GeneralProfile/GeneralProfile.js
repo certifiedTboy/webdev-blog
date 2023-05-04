@@ -5,10 +5,10 @@ const GeneraProfile = ({ userData }) => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-8">
+        <div className="col-md-8 col-12">
           <Story userData={userData} />
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4 d-none d-sm-none d-md-block">
           <UserDetails userData={userData} />
         </div>
       </div>

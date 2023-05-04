@@ -34,7 +34,7 @@ const Blog = () => {
   return (
     <Fragment>
       {isLoading && <Loader />}
-      {!isLoading && <BlogsBanner blog={blog} />}
+      {!isLoading && <BlogsBanner />}
       {!isLoading && <SingleBlog blog={blog} />}
     </Fragment>
   );

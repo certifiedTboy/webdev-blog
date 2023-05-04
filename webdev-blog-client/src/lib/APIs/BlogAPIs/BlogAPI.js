@@ -37,7 +37,6 @@ export const getABlog = async (title) => {
       return { error: data.message };
     }
 
-    console.log(data);
     return data;
   } catch (error) {
     return { error: "something went wrong" };
