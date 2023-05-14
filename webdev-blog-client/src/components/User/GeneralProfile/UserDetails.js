@@ -43,11 +43,16 @@ const UserDetails = ({ userData }) => {
   }, [username, dispatch]);
 
   useEffect(() => {
-    if (success.successStatus === true) {
-      setShowUpdateModal(false);
-      setShowUploadModal(false);
+    if (success.successType === "image-upload") {
+      return setShowUploadModal(false);
     }
-  }, [success.successStatus]);
+  }, [success.successType]);
+
+  useEffect(() => {
+    if (success.successType === "update-user") {
+      return setShowUpdateModal(false);
+    }
+  }, [success.successType]);
 
   return (
     <>

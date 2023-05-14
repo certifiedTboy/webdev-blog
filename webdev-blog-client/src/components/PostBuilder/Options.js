@@ -1,3 +1,22 @@
+import { getAllBlogs } from "../../lib/APIs/BlogAPIs/BlogAPI";
+
+const blogs = [];
+
+const onGetAllBlogs = async () => {
+  const response = await getAllBlogs();
+  response.data.map((blg) => {
+    let newData = {
+      text: blg.title,
+      value: blg.title,
+      url: "http://localhost:3000/api/v1/blogs/" + blg._id,
+    };
+
+    return blogs.push(newData);
+  });
+};
+
+onGetAllBlogs();
+
 export const toolbar = {
   inline: { inDropdown: true },
   list: { inDropdown: true },
@@ -9,20 +28,7 @@ export const toolbar = {
 export const mention = {
   separator: " ",
   trigger: "@",
-  suggestions: [
-    { text: "APPLE", value: "apple", url: "apple" },
-    { text: "BANANA", value: "banana", url: "banana" },
-    { text: "CHERRY", value: "cherry", url: "cherry" },
-    { text: "DURIAN", value: "durian", url: "durian" },
-    { text: "EGGFRUIT", value: "eggfruit", url: "eggfruit" },
-    { text: "FIG", value: "fig", url: "fig" },
-    {
-      text: "GRAPEFRUIT",
-      value: "grapefruit",
-      url: "grapefruit",
-    },
-    { text: "HONEYDEW", value: "honeydew", url: "honeydew" },
-  ],
+  suggestions: blogs,
 };
 
 export const hashtag = {

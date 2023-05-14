@@ -7,7 +7,7 @@ import {
   requestSuccess,
   requestFailed,
 } from "../lib/generaRequestRedux/requestSlice";
-import Banner from "../components/User/GeneralProfile/Banner";
+import Banner from "../components/layouts/banner/Banner";
 import GeneraProfile from "../components/User/GeneralProfile/GeneralProfile";
 import Loader from "../components/UI/Loader/Loader";
 
@@ -16,7 +16,6 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const { username } = params;
-  const { isLoading } = useSelector((state) => state.request);
 
   useEffect(() => {
     const onGetUserByUsername = async () => {
@@ -38,9 +37,8 @@ const ProfilePage = () => {
   }, [username, dispatch]);
   return (
     <Fragment>
-      {isLoading && <Loader />}
-      {!isLoading && <Banner userData={userData} />}
-      {!isLoading && <GeneraProfile userData={userData} />}
+      <Banner userData={userData} />
+      <GeneraProfile userData={userData} />
     </Fragment>
   );
 };

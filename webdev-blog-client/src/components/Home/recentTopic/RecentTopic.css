@@ -67,10 +67,14 @@
     border-bottom-right-radius: 5px;
   }
 
+  .news-text-box h5{
+    font-size: 15px;
+  }
+
   a.read-more-btn {
     display: inline-block;
-    margin-top: 15px;
     color: #051922;
+    margin-top: 15px;
     -webkit-transition: 0.3s;
     -o-transition: 0.3s;
     transition: 0.3s;
@@ -84,4 +88,5 @@
   p.excerpt {
     line-height: 1.8;
     color: #555;
+    font-size: 15px;
   }

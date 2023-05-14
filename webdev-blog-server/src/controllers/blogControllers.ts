@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import BlogHelpers from "../helpers/blogHelpers/blogHelpers";
+import { getPagination } from "../utils/pagination/pagination";
 import { ResponseHandler } from "../lib/helpers";
 
 /**
@@ -93,7 +94,7 @@ class BlogControllers {
       const blog = await BlogHelpers.getBlogByTitle(title);
 
       if (blog) {
-        ResponseHandler.created(res, blog, "success");
+        ResponseHandler.ok(res, blog, "success");
       }
     } catch (err) {
       next(err);
@@ -119,7 +120,7 @@ class BlogControllers {
       const blog = await BlogHelpers.checkThatBlogExistById(blogId);
 
       if (blog) {
-        ResponseHandler.created(res, blog, "success");
+        ResponseHandler.ok(res, blog, "success");
       }
     } catch (err) {
       next(err);
@@ -141,14 +142,42 @@ class BlogControllers {
     next: NextFunction
   ): Promise<any> {
     try {
-      const blogs = await BlogHelpers.getAllBlogs();
+      const { skip, limit } = getPagination(req.query);
+      const blogs = await BlogHelpers.getAllBlogs(skip, limit);
       if (blogs) {
-        ResponseHandler.created(res, blogs, "success");
+        ResponseHandler.ok(res, blogs, "success");
       }
     } catch (err) {
       next(err);
     }
   }
+
+
+    /**
+   * @method getAllBlogsByUser
+   * @static
+   * @async
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {ICreateBlog}
+   */
+     static async getAllBlogsByUser(
+      req: any,
+      res: Response,
+      next: NextFunction
+    ): Promise<any> {
+      try {
+        const {username} = req.params
+        const blogs = await BlogHelpers.allBlogsByUser(username);
+        if (blogs) {
+          
+          ResponseHandler.ok(res, blogs, "success");
+        }
+      } catch (err) {
+        next(err);
+      }
+    }
 
   /**
    * @method reactToBlog

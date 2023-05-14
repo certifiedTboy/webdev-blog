@@ -1,131 +1,86 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 import Moment from "react-moment";
-import Loader from "../../UI/Loader/Loader";
-import MiniLoader from "../../UI/Loader/MiniLoader";
-import Pagination from "../pagination/Pagination";
+import useLoadBlogs from "./useLoadBlogs";
+import DescriptionPopUp from "./DescriptionPopUp";
+import LoadingPlaceHolder from "./LoadingPlaceHolder";
 import "./AllBlogs.css";
 
 const AllBlogs = () => {
-  const [loadingPage, setLoadingPage] = useState(true);
-  const { blogs, isLoading, errorMessage } = useSelector((state) => state.blog);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage, setRecordsPerPage] = useState(6);
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+  const [page, setPage] = useState(1);
 
-  setTimeout(() => {
-    setLoadingPage(false);
-  }, 2000);
+  const [showA, setShowA] = useState({ state: false, key: "" });
+
+  const { newBlogs, hasMore, loading, error } = useLoadBlogs(page);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+    const onScroll = () => {
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+
+      if (scrollTop + clientHeight >= scrollHeight) {
+        setPage(page + 1);
+      }
     };
+    if (hasMore) {
+      window.addEventListener("scroll", onScroll);
+      return () => window.removeEventListener("scroll", onScroll);
+    }
+  }, [page, hasMore]);
 
-    window.addEventListener("resize", handleResize);
-    return (_) => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  let blogContent = newBlogs.map((blog) => {
+    return (
+      <div key={blog._id}>
+        <div
+          className="single-latest-news"
+          onClick={() => setShowA({ state: false, key: "" })}
+        >
+          <div className="latest-news-bg news-bg-1"></div>
 
-  useEffect(() => {}, []);
-
-  let currentRecords;
-  let nPages;
-  const publishedBlogs = blogs.filter((blog) => blog.isPublished);
-  if (publishedBlogs.length > 0) {
-    currentRecords = publishedBlogs.slice(
-      indexOfFirstRecord,
-      indexOfLastRecord
+          <div className="news-text-box">
+            <h5>{blog.title}</h5>
+            <p className="blog-meta">
+              <span className="author">
+                <i className="fas fa-user"></i>{" "}
+                <NavLink to={`/w-d/${blog.user.username}`}>
+                  {blog.user.firstName} {blog.user.lastName}
+                </NavLink>
+              </span>
+              <span className="date">
+                <i className="fas fa-calendar"></i>{" "}
+                <Moment className="meta-own" fromNow>
+                  {blog.createdAt}
+                </Moment>
+              </span>
+            </p>
+            {showA.key === blog._id && (
+              <DescriptionPopUp
+                showA={showA.state}
+                description={blog.description}
+              />
+            )}
+            <div onMouseOver={() => setShowA({ state: true, key: blog._id })}>
+              <p className="excerpt">{blog.description.substr(0, 38)}...</p>
+            </div>
+            <NavLink to={`/blogs/${blog.title}`} className="read-more-btn">
+              read more <i className="fas fa-angle-right"></i>
+            </NavLink>
+          </div>
+        </div>
+      </div>
     );
-    nPages = Math.ceil(blogs.length / recordsPerPage);
-  } else {
-    currentRecords = [];
-    nPages = [];
-  }
-
-  let blogContent;
-
-  if (windowWidth > 761) {
-    blogContent = currentRecords.map((blog) => {
-      return (
-        <div className="col-lg-4 col-md-6" key={blog._id.toString()}>
-          <div className="single-latest-news">
-            <div className="latest-news-bg news-bg-1"></div>
-
-            <div className="news-text-box">
-              <h3>{blog.title}</h3>
-              <p className="blog-meta">
-                <span className="author">
-                  <i className="fas fa-user"></i>{" "}
-                  <NavLink to={`/w-d/${blog.user.username}`}>
-                    {blog.user.firstName} {blog.user.lastName}
-                  </NavLink>
-                </span>
-                <span className="date">
-                  <i className="fas fa-calendar"></i>{" "}
-                  <Moment className="meta-own" fromNow>
-                    {blog.createdAt}
-                  </Moment>
-                </span>
-              </p>
-              <p className="excerpt">{blog.description}</p>
-              <NavLink to={`/blogs/${blog.title}`} className="read-more-btn">
-                read more <i className="fas fa-angle-right"></i>
-              </NavLink>
-            </div>
-          </div>
-        </div>
-      );
-    });
-  } else {
-    blogContent = blogs.map((blog) => {
-      return (
-        <div className="col-lg-4 col-md-6" key={blog._id.toString()}>
-          <div className="single-latest-news">
-            <div className="latest-news-bg news-bg-1"></div>
-
-            <div className="news-text-box">
-              <h3>{blog.title}</h3>
-              <p className="blog-meta">
-                <span className="author">
-                  <i className="fas fa-user"></i>{" "}
-                  <NavLink to={`/w-d/${blog.user.username}`}>
-                    {blog.user.firstName} {blog.user.lastName}
-                  </NavLink>
-                </span>
-                <span className="date">
-                  <i className="fas fa-calendar"></i>{" "}
-                  <Moment className="meta-own" fromNow>
-                    {blog.createdAt}
-                  </Moment>
-                </span>
-              </p>
-              <p className="excerpt">{blog.content}</p>
-              <NavLink to={`/blogs/${blog.title}`} className="read-more-btn">
-                read more <i className="fas fa-angle-right"></i>
-              </NavLink>
-            </div>
-          </div>
-        </div>
-      );
-    });
-  }
+  });
 
   return (
-    <div className="latest-news mt-150 mb-150 mt-5">
-      <div className="container">
-        <div className="row">
-          {loadingPage && <Loader />}
+    <div className="container">
+      <div className="row">
+        <div className="col-12">
           <div className="col-12 text-center">
-            {isLoading && <MiniLoader />}
-            {errorMessage && (
+            {error.error && (
               <>
                 <div className="alert alert-danger text-center" role="alert">
-                  {errorMessage.error}
+                  {error.error}
                 </div>
                 <a className="btn btn-warning" href="/blogs">
                   Reload Page
@@ -133,15 +88,19 @@ const AllBlogs = () => {
               </>
             )}
           </div>
-          {!isLoading && blogContent.length > 0 && blogContent}
         </div>
-        {windowWidth > 761 && nPages > 0 && (
-          <Pagination
-            nPages={nPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        )}
+      </div>
+      <div className="row">
+        <div className=" col-1 col-md-2"></div>
+        <div className=" col-10 col-md-8">
+          {" "}
+          {blogContent} {loading && <LoadingPlaceHolder />}
+        </div>
+        <div className="col-1 col-md-2">
+          <div>
+            <h1>Empty for Advert Placement</h1>
+          </div>
+        </div>
       </div>
     </div>
   );

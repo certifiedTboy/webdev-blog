@@ -13,6 +13,7 @@ router.get(
   BlogAuthorization.checkBlogOwnership,
   BlogControllers.getBlogById
 );
+router.get("/get-blogs-by-user/:username", BlogControllers.getAllBlogsByUser);
 router.get(
   "/edit/check-that-blog-exist/:title",
   Authenticate,

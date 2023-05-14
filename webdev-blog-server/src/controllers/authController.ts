@@ -11,7 +11,7 @@ import { ResponseHandler } from "../lib/helpers";
 class AuthController {
 /**
  * 
- * @method emailLogin
+ * @method emailLogin 
  * @static
  * @async
  * @param {Request}req 

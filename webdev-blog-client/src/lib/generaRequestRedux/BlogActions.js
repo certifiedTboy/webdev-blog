@@ -1,11 +1,11 @@
 import { onGetBlog, getBlogsSuccess, getBlogFailed } from "./BlogSlice";
-import { getAllBlogs } from "../../../lib/APIs/BlogAPIs/BlogAPI";
+import { getAllBlogsByUser } from "../APIs/BlogAPIs/BlogAPI";
 
-export const getBlogs = () => async (dispatch) => {
+export const getBlogsByUser = (username) => async (dispatch) => {
   try {
     dispatch(onGetBlog());
 
-    const response = await getAllBlogs();
+    const response = await getAllBlogsByUser(username);
     if (response.error) {
       return dispatch(getBlogFailed({ error: response.error }));
     }

@@ -15,8 +15,11 @@ export const loginUserWithEmail = async (loginData) => {
       return { error: data.message };
     }
 
+    const TIMESTAMP = Date.now();
+    const expiresAt = TIMESTAMP + 1000 * 60 * 60 * 24;
     localStorage.setItem("accessJWT", data.data.authToken);
     localStorage.setItem("C_U", JSON.stringify(data.data.userData));
+    localStorage.setItem("expiresAt", expiresAt);
 
     return { message: data.message, user: data.data.userData };
   } catch (error) {

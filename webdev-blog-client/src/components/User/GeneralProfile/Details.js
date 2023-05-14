@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { getBlogs } from "../../Blogs/blogRedux/BlogActions";
+import { getBlogsByUser } from "../../../lib/generaRequestRedux/BlogActions";
 import {
   publishBlog,
   getBlogById,
@@ -20,6 +20,7 @@ const Details = ({ userData }) => {
   const [requestSuccess, setRequestSuccess] = useState(false);
   const [title, setTitle] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [currentUsername, setCurrentUsername] = useState();
   const [showEmailInput, setShowEmailInput] = useState({
     state: false,
     btn_value: "",
@@ -29,8 +30,26 @@ const Details = ({ userData }) => {
   const [recordsPerPage] = useState(4);
   const indexOfLastRecord = 1 * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-
+  const params = useParams();
+  const { username } = params;
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const onGetAllBlogs = async () => {
+      dispatch(getBlogsByUser(username));
+    };
+
+    onGetAllBlogs();
+  }, [requestSuccess, dispatch, username]);
+
+  const { blogs } = useSelector((state) => state.blog);
+  const { user } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    if (user) {
+      setCurrentUsername(user.username);
+    }
+  }, []);
 
   //publish created blog
   const onPublishBlog = async (event) => {
@@ -70,7 +89,7 @@ const Details = ({ userData }) => {
       setDescription(response.data.description);
       setContent(response.data.content);
       return setShowModal(true);
-    } catch (erro) {
+    } catch (error) {
       setShowModal(true);
       setIsLoading(false);
       setErrorMessage("something went wrong");
@@ -107,38 +126,24 @@ const Details = ({ userData }) => {
   };
 
   useEffect(() => {
-    const onGetAllBlogs = async () => {
-      dispatch(getBlogs());
-    };
-
-    onGetAllBlogs();
-  }, [requestSuccess, dispatch]);
-
-  const { blogs } = useSelector((state) => state.blog);
-  const { user } = useSelector((state) => state.login);
-
-  const params = useParams();
-  const { username } = params;
-
-  useEffect(() => {
     setBlogByUser(blogs.filter((blog) => blog.user.username === username));
   }, [blogs, username]);
 
   useEffect(() => {
-    if (user.username === username) {
+    if (currentUsername === username) {
       return setUserBlogs(
         blogByUser.slice(indexOfFirstRecord, indexOfLastRecord)
       );
     }
 
-    if (user.username !== username) {
+    if (currentUsername !== username) {
       const publishedBlogs = blogByUser.filter((blog) => blog.isPublished);
       setTotalPublishedBlogs(publishedBlogs);
       return setUserBlogs(
         publishedBlogs.slice(indexOfFirstRecord, indexOfLastRecord)
       );
     }
-  }, [blogByUser, blogs, username]);
+  }, [blogByUser, blogs, username, currentUsername]);
 
   const onShowModal = () => {
     if (showModal) {
@@ -192,25 +197,25 @@ const Details = ({ userData }) => {
 
             {userBlogs.map((blog) => {
               return (
-                <div className="card mb-2" key={blog._id.toString()}>
+                <div className="card mb-2" key={blog._id}>
                   <div className="card-header">
                     <NavLink to={`/blogs/${blog.title}`}>{blog.title}</NavLink>
                   </div>
                   <div className={`${classes.card_body} card-body`}>
-                    {user && user.username === username && (
+                    {currentUsername && currentUsername === username && (
                       <div className={classes.btn_container}>
-                        {showEmailInput.btn_value !== blog._id.toString() && (
+                        {showEmailInput.btn_value !== blog._id && (
                           <button
-                            value={blog._id.toString()}
+                            value={blog._id}
                             className={`mr-1 ${classes.action_btn}`}
                             onClick={onGetBlogById}
                           >
                             View
                           </button>
                         )}
-                        {showEmailInput.btn_value !== blog._id.toString() && (
+                        {showEmailInput.btn_value !== blog._id && (
                           <button
-                            value={blog._id.toString()}
+                            value={blog._id}
                             className={`mr-1 ${classes.action_btn}`}
                             onClick={onPublishBlog}
                           >
@@ -218,7 +223,7 @@ const Details = ({ userData }) => {
                           </button>
                         )}
 
-                        {showEmailInput.btn_value !== blog._id.toString() && (
+                        {showEmailInput.btn_value !== blog._id && (
                           <NavLink
                             to={`/blogs/edit/${blog._id}`}
                             className="mr-1"
@@ -227,17 +232,17 @@ const Details = ({ userData }) => {
                           </NavLink>
                         )}
                         <button
-                          value={blog._id.toString()}
+                          value={blog._id}
                           className={`${classes.delete_btn}`}
                           onClick={confirmDeleteHandler}
                         >
-                          {showEmailInput.btn_value === blog._id.toString()
+                          {showEmailInput.btn_value === blog._id
                             ? "Cancle"
                             : "Delete"}
                         </button>
                       </div>
                     )}
-                    {showEmailInput.btn_value === blog._id.toString() && (
+                    {showEmailInput.btn_value === blog._id && (
                       <div className={classes.input_container}>
                         <input
                           className={`${classes.email_input}`}
@@ -257,7 +262,7 @@ const Details = ({ userData }) => {
                 </div>
               );
             })}
-            {user.username === username && (
+            {currentUsername && currentUsername === username && (
               <div>
                 {blogByUser.length > 4 && (
                   <a href="#">
@@ -267,7 +272,7 @@ const Details = ({ userData }) => {
               </div>
             )}
 
-            {user.username !== username && (
+            {currentUsername && currentUsername !== username && (
               <div>
                 {totalPublishBlogs.length > 4 && (
                   <a href="#">

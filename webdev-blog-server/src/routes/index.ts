@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import { NotFoundHandler } from "../lib/middlewares";
 import Verification from "./verification"
 import Auth from "./auth"

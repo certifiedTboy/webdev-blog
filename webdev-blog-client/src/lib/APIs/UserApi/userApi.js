@@ -2,6 +2,14 @@ const API_BASE_URL = "http://localhost:3001/api/v1";
 
 export const getAccessToken = () => {
   const token = localStorage.getItem("accessJWT");
+  const expiresAt = localStorage.getItem("expiresAt");
+  const TIMESTAMP = Date.now();
+
+  if (TIMESTAMP > expiresAt) {
+    localStorage.removeItem("accessJWT");
+    localStorage.removeItem("expiresAt");
+  }
+
   if (!token) {
     return;
   }
@@ -10,6 +18,15 @@ export const getAccessToken = () => {
 
 export const getCurrentUser = () => {
   const currentUser = JSON.parse(localStorage.getItem("C_U"));
+
+  const expiresAt = localStorage.getItem("expiresAt");
+  const TIMESTAMP = Date.now();
+
+  if (TIMESTAMP > expiresAt) {
+    localStorage.removeItem("C_U");
+    localStorage.removeItem("expiresAt");
+  }
+
   if (!currentUser) {
     return;
   }
@@ -46,6 +63,7 @@ export const updateUserDetails = async (updateData) => {
 
 export const uploadImage = async (image) => {
   const authToken = localStorage.getItem("accessJWT");
+  console.log(authToken);
   const formData = new FormData();
   formData.append("image", image);
 
@@ -56,6 +74,7 @@ export const uploadImage = async (image) => {
         method: "PUT",
         headers: {
           Accept: "application/json",
+          "Content-Type": "multipart/form-data",
           authorization: `Bearer ${authToken}`,
         },
         body: formData,

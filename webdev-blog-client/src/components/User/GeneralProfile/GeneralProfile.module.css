@@ -24,6 +24,15 @@ color:#07212e
 
 }
 
+.upload_btn2 {
+    position: absolute;
+   margin-left: 10px;
+   margin-top: -40px;
+   margin-bottom: 24px;
+   color:#07212e
+   
+   }
+
 .edit_btn {
     font-weight: 600;
     font-size: 14px;
@@ -74,8 +83,12 @@ color:#07212e
     margin-top: 20px;
 }
 
-.nav_border nav {
+/* .nav_border nav {
     padding-left: 0px !important;
+} */
+
+.nav_border a {
+    font-size: 15px;
 }
 
 
@@ -145,6 +158,24 @@ margin-right: 5px;
     align-content: center;
    }
   }
+
+
+  @media only screen and (max-width: 767px) {
+   .move_center {
+    text-align: center !important;
+   }
+
+   .date  {
+    font-weight: 600;
+    font-size: 15px;
+   }
+
+   }
+
+   .date span {
+    font-weight: 600;
+   }
+   
   
 /*   
   @media only screen and (max-width: 342px) {

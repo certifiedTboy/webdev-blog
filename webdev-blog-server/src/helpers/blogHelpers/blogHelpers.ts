@@ -143,19 +143,32 @@ class BlogHelpers {
    * @static
    * @returns {Promise<Blog>}
    */
-  static async getAllBlogs(): Promise<any> {
+  static async getAllBlogs(skip:number, limit:number): Promise<any> {
     try {
-      const foundBlogs = await Blog.find({});
-
-      if (!foundBlogs || foundBlogs.length === 0) {
-        throw new NotFoundError("No blog found");
-      }
-
-      return foundBlogs;
+      
+      const foundBlogs = await Blog.find({}, { __v: 0 }).skip(skip).limit(limit);
+      const publishedBlogs = foundBlogs.filter((blog) => blog.isPublished)
+      return publishedBlogs;
     } catch (error) {
       throw new ServerError("something went wrong");
     }
   }
+
+    /**
+   * @method getAllBlogsByUser
+   * @static
+   * @returns {Promise<Blog>}
+   */
+     static async allBlogsByUser(username:string): Promise<any> {
+      try {
+        
+        const foundBlogs = await Blog.find({});
+        const blogByUser = foundBlogs.filter((blog) => blog.user?.username === username)
+        return blogByUser;
+      } catch (error) {
+        throw new ServerError("something went wrong");
+      }
+    }
 
   /**
    * @method updateReactionToBlog

@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import LoginBanner from "../components/Auth/login/LoginBanner";
+import Banner from "../components/layouts/banner/Banner";
 import Login from "../components/Auth/login/Login";
 
 const LoginPage = () => {
@@ -15,7 +15,7 @@ const LoginPage = () => {
   }, [user, navigate]);
   return (
     <Fragment>
-      <LoginBanner />
+      <Banner />
       <Login />
     </Fragment>
   );

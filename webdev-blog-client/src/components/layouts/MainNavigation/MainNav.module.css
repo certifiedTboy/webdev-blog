@@ -17,3 +17,30 @@
     border-radius: 50%;
     margin-left: 20px;
 }
+
+
+.mobile_img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-left: 20px;
+}
+
+
+.form_control {
+    width: 50px;
+   
+}
+
+.form_control2 {
+    margin-bottom: 7px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+@media only screen and (max-width: 470px) {
+   .mobile_a{
+    font-size: 30px !important;
+   }
+   }
+

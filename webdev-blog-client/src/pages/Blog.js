@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SingleBlog from "../components/Blogs/SingleBlog/SingleBlog";
-import BlogsBanner from "../components/Blogs/AllBlogs/BlogsBanner";
+import Banner from "../components/layouts/banner/Banner";
 import { getABlog } from "../lib/APIs/BlogAPIs/BlogAPI";
 import Loader from "../components/UI/Loader/Loader";
 
@@ -33,9 +33,8 @@ const Blog = () => {
 
   return (
     <Fragment>
-      {isLoading && <Loader />}
-      {!isLoading && <BlogsBanner />}
-      {!isLoading && <SingleBlog blog={blog} />}
+      <Banner />
+      <SingleBlog blog={blog} />
     </Fragment>
   );
 };

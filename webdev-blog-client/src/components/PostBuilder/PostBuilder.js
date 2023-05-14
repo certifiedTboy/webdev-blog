@@ -356,9 +356,6 @@ const PostBuilder = () => {
               ref={contentRef}
               value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
             />
-            {/* <pre>
-              {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-            </pre> */}
 
             <Editor
               editorState={editorState}

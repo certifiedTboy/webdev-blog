@@ -1,7 +1,6 @@
 import { Request } from 'express'
-import multer, { FileFilterCallback } from 'multer'
-import { UnprocessableError } from '../../lib/exceptions'
-import path from "path"
+import multer, { FileFilterCallback,  MulterError } from 'multer'
+import * as path from "path";
 
 
 type DestinationCallback = (error: Error | null, destination: string) => void
@@ -11,46 +10,45 @@ type FileNameCallback = (error: Error | null, filename: string) => void
 
 const storage = multer.diskStorage({
   destination: (
-    request: Request,
+    req: Request,
     file: Express.Multer.File,
     callback: DestinationCallback
   ): void => {
-    callback(null, "public/uploads");
+     callback(null, "public/uploads");
   },
 
   filename: (
-    req: any,
+    req: Request,
     file: Express.Multer.File,
     callback: FileNameCallback
   ): void => {
-    const uniqueSuffix = req.user.id
-    callback(null, file.originalname + "-" + uniqueSuffix );
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    callback(null, file.originalname + "-" + uniqueSuffix);
   }
 })
 
 
 const fileFilter = (
-  request: Request,
+  req: Request,
   file: Express.Multer.File,
   callback: FileFilterCallback
 ): void => {
-  let ext = path.extname(file.originalname); 
+  let ext = path.extname(file.originalname);
   if (
     ext !== ".png" &&
     ext !== ".jpg" &&
-    ext !== ".jpeg"
+    ext !== ".jpeg" 
   ) {
-    callback(new UnprocessableError(`unsupported file format`));
+    callback(new MulterError("LIMIT_UNEXPECTED_FILE"));
   }
   callback(null, true);
 }
 
 
-const upload = multer({
-  storage, 
-  fileFilter
+ const upload = multer({
+  storage:storage,
+  fileFilter 
 });
 
-
-
 export default upload
+

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { getBlogs } from "../blogRedux/BlogActions";
+import { getBlogsByUser } from "../../../lib/generaRequestRedux/BlogActions";
 
 const RelatedPosts = ({ username }) => {
   const [recordsPerPage] = useState(6);
@@ -12,21 +12,16 @@ const RelatedPosts = ({ username }) => {
   const { title } = params;
   const dispatch = useDispatch();
 
-  console.log(title);
-
   useEffect(() => {
-    dispatch(getBlogs());
+    if (username) {
+      dispatch(getBlogsByUser(username));
+    }
   }, []);
 
   const { blogs } = useSelector((state) => state.blog);
 
   useEffect(() => {
-    const allBlogsByUser = blogs.filter(
-      (blog) => blog.user.username === username
-    );
-    const publishedBlogsByUser = allBlogsByUser.filter(
-      (blog) => blog.isPublished
-    );
+    const publishedBlogsByUser = blogs.filter((blog) => blog.isPublished);
     const blogByUser = publishedBlogsByUser.filter(
       (newBlog) => newBlog.title !== title
     );
@@ -40,7 +35,7 @@ const RelatedPosts = ({ username }) => {
     <ul>
       {recentBlogs.map((blog) => {
         return (
-          <li key={blog._id.toString()}>
+          <li key={blog._id}>
             <NavLink to={`/blogs/${blog.title}`}>{blog.title}</NavLink>
           </li>
         );

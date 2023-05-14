@@ -6,6 +6,7 @@ import { transform } from "../Blogs/SingleBlog/Transform";
 import "./PostBuilder.css";
 
 const PreviewModal = ({ title, content, onShowModal }) => {
+  console.log(content);
   return (
     <ProfileModal>
       <div
@@ -14,7 +15,7 @@ const PreviewModal = ({ title, content, onShowModal }) => {
       >
         <Modal.Dialog>
           <Modal.Header>
-            <Modal.Title>{title}</Modal.Title>
+            <Modal.Title>{title ? title : ""}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body className="modal-body">

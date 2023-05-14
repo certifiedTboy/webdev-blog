@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Banner from "../components/User/GeneralProfile/Banner";
+import Banner from "../components/layouts/banner/Banner";
 import GeneraProfile from "../components/User/GeneralProfile/GeneralProfile";
 
 const AdminPage = () => {

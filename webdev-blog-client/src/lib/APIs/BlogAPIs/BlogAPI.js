@@ -1,17 +1,42 @@
 import { getAccessToken } from "../UserApi/userApi";
 const API_BASE_URL = "http://localhost:3001/api/v1";
 
-export const getAllBlogs = async () => {
+export const getAllBlogs = async (pageNum) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/blog`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/blog?page=${pageNum}&limit=10`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await response.json();
+    if (!response.ok) {
+      return { error: data.message };
+    }
 
+    return data;
+  } catch (error) {
+    return { error: "something went wrong" };
+  }
+};
+
+export const getAllBlogsByUser = async (username) => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/blog/get-blogs-by-user/${username}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
     if (!response.ok) {
       return { error: data.message };
     }
@@ -165,8 +190,11 @@ export const publishBlog = async (blogId) => {
   }
 };
 
-export const reactToBlog = async (reactionData, blogId) => {
+export const reactToBlog = async (reaction, blogId) => {
   const authToken = getAccessToken();
+  const reactionData = {
+    reaction,
+  };
   try {
     const response = await fetch(
       `${API_BASE_URL}/blog/react-to-blog/${blogId}`,

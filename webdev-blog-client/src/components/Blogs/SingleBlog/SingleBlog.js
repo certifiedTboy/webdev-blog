@@ -4,11 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import Moment from "react-moment";
 import { NavLink } from "react-router-dom";
 import { onFollowUser } from "../../../lib/generaRequestRedux/FollowActions";
+import { onGetOtherUserProfilePicture } from "../../../lib/generaRequestRedux/profileActions";
 import { getUserByUsername } from "../../../lib/APIs/UserApi/userApi";
 import { transform } from "./Transform";
 import RelatedPosts from "./RelatedPosts";
 import KeyWords from "./KeyWords";
 import "./SingleBlog.css";
+import Reaction from "./Reaction";
 
 const SingleBlog = ({ blog }) => {
   const [following, setFollowing] = useState([]);
@@ -18,12 +20,20 @@ const SingleBlog = ({ blog }) => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.login);
+  const { otherUserProfilePicture } = useSelector((state) => state.profile);
 
   useEffect(() => {
     if (blog.user) {
       setBlogOwner(blog.user.username);
     }
   }, [blog.user]);
+
+  useEffect(() => {
+    const getProfilePicture = async () => {
+      dispatch(onGetOtherUserProfilePicture(blogOwner));
+    };
+    getProfilePicture();
+  }, [blogOwner, dispatch]);
 
   const followUserHandler = async () => {
     await dispatch(onFollowUser(blog.user.username));
@@ -46,14 +56,16 @@ const SingleBlog = ({ blog }) => {
   }, [blogOwner, follow_success, follow_failed]);
 
   useEffect(() => {
-    const userFollow = followers.find(
-      (follow) => follow.username === user.username
-    );
+    if (user) {
+      const userFollow = followers.find(
+        (follow) => follow.username === user.username
+      );
 
-    if (userFollow) {
-      return setUserIsFollowing(true);
-    } else {
-      return setUserIsFollowing(false);
+      if (userFollow) {
+        return setUserIsFollowing(true);
+      } else {
+        return setUserIsFollowing(false);
+      }
     }
   }, [followers]);
 
@@ -61,17 +73,24 @@ const SingleBlog = ({ blog }) => {
     <div className="mt-150 mb-150 mt-5">
       <div className="container">
         <div className="row">
-          <div className="col-lg-8">
+          <div className="col-md-8">
             <div className="single-article-section">
               <div className="single-article-text">
                 <h2>{blog.title}</h2>
                 <p className="blog-meta d-inline mr-2">
                   {blog.user && (
                     <span className="author">
-                      <i className="fas fa-user"></i>
+                      <img
+                        className="user_image"
+                        src={`http://localhost:3001/${otherUserProfilePicture}`}
+                      />
+                      <i className="fas fa-user ml-2"></i>
                       <NavLink to={`/w-d/${blog.user.username}`}>
                         {" "}
-                        {blog.user.firstName} {blog.user.lastName}
+                        <strong>
+                          {" "}
+                          {blog.user.firstName} {blog.user.lastName}
+                        </strong>
                       </NavLink>
                     </span>
                   )}
@@ -110,11 +129,14 @@ const SingleBlog = ({ blog }) => {
                 </div>
 
                 {blog.content && (
-                  <Fragment>
+                  <div className="code_pre">
                     <Interweave content={blog.content} transform={transform} />
-                  </Fragment>
+                  </div>
                 )}
               </div>
+              {blog.reactions && (
+                <Reaction reaction={blog.reactions} blogId={blog._id} />
+              )}
 
               {/* <div className="comments-list-wrap">
                 <h3 className="comment-count-title">3 Comments</h3>
@@ -205,7 +227,7 @@ const SingleBlog = ({ blog }) => {
               </div> */}
             </div>
           </div>
-          <div className="col-lg-4">
+          <div className="col-md-4 d-none d-sm-none d-md-block">
             <div className="sidebar-section">
               <div className="recent-posts">
                 <h4>Recent Posts</h4>

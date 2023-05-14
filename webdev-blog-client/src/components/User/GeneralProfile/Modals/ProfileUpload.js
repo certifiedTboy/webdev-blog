@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ProfileModal from "./ProfileModal";
+import { uploadImage } from "../../../../lib/APIs/UserApi/userApi";
 import { requestFailed } from "../../../../lib/generaRequestRedux/requestSlice";
 import { uploadUserImage } from "../../../../lib/generaRequestRedux/requestActions";
 import MiniLoader from "../../../UI/Loader/MiniLoader";
@@ -53,7 +54,9 @@ const ProfileUpload = ({ onShowModal }) => {
       return dispatch(requestFailed({ error: "invalid image format" }));
     }
 
-    dispatch(uploadUserImage(image));
+    // dispatch(uploadUserImage(image));
+    const response = await uploadImage(image);
+    console.log(response);
   };
 
   useEffect(() => {
@@ -98,7 +101,7 @@ const ProfileUpload = ({ onShowModal }) => {
         </Button>
         <Button
           variant="primary"
-          type="submit"
+          // type="submit"
           onClick={onUploadUserImage}
           className={`${errorMessage ? "disabled" : ""}`}
         >

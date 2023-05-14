@@ -1,10 +1,10 @@
 import React from "react";
 import PostBuilder from "../components/PostBuilder/PostBuilder";
-import PostBuilderBanner from "../components/PostBuilder/PostBuilderBanner";
+import Banner from "../components/layouts/banner/Banner";
 const WriteArticle = () => {
   return (
     <div>
-      <PostBuilderBanner />
+      <Banner />
       <PostBuilder />;
     </div>
   );
