@@ -236,7 +236,9 @@ const SingleBlog = ({ blog }) => {
 
               <div className="tag-section">
                 <h4>Keywords</h4>
-                <KeyWords />
+                {blog.title && (
+                  <KeyWords title={blog.title} description={blog.description} />
+                )}
               </div>
             </div>
           </div>

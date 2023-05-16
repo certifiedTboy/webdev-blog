@@ -4,6 +4,7 @@ import { Link } from "react-scroll";
 import { NavLink } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { getUserProfilePicture } from "../../../lib/generaRequestRedux/profileActions";
+import webdevLogo from "../../../Assets/webdev_logo.jpg";
 import classes from "./MainNav.module.css";
 
 const MainNavigation = ({ scrollTop }) => {
@@ -46,6 +47,14 @@ const MainNavigation = ({ scrollTop }) => {
                 className={classes.mobile_img}
                 src={`http://localhost:3001/${currentUserProfilePicture}`}
                 alt="profile_picture"
+              />
+            )}
+
+            {!user && (
+              <img
+                className={classes.mobile_img}
+                src={webdevLogo}
+                alt="web_dev_logo"
               />
             )}
           </button>

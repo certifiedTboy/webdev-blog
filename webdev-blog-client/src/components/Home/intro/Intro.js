@@ -1,5 +1,6 @@
 import React from "react";
 import { AnimationOnScroll } from "react-animation-on-scroll";
+import { NavLink } from "react-router-dom";
 import "./Intro.css";
 
 const Banner = () => {
@@ -39,9 +40,9 @@ const Banner = () => {
                   Sapiente facilis illo repellat veritatis minus, et labore
                   minima mollitia qui ducimus.
                 </p>
-                <a href="/about" className="boxed-btn mt-4">
+                <NavLink to="/about" className="boxed-btn mt-4">
                   know more
-                </a>
+                </NavLink>
               </div>
             </div>
           </div>
