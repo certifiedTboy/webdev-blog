@@ -18,17 +18,6 @@ const UserDetails = ({ userData }) => {
   const params = useParams();
   const { username } = params;
 
-  useEffect(() => {
-    const splitedProfile = otherUserProfilePicture.split(":");
-    if (splitedProfile[0] === "https") {
-      return setProfilePicture(otherUserProfilePicture);
-    } else {
-      return setProfilePicture(
-        `http://localhost:3001/${otherUserProfilePicture}`
-      );
-    }
-  }, [otherUserProfilePicture]);
-
   const onShowModal = (event) => {
     event.preventDefault();
     if (!showUpdateModal) {
@@ -65,6 +54,19 @@ const UserDetails = ({ userData }) => {
       return setShowUpdateModal(false);
     }
   }, [success.successType]);
+
+  useEffect(() => {
+    if (otherUserProfilePicture) {
+      const splitedProfile = otherUserProfilePicture.split(":");
+      if (splitedProfile[0] === "https") {
+        return setProfilePicture(otherUserProfilePicture);
+      } else {
+        return setProfilePicture(
+          `http://localhost:3001/${otherUserProfilePicture}`
+        );
+      }
+    }
+  }, [otherUserProfilePicture]);
 
   return (
     <>

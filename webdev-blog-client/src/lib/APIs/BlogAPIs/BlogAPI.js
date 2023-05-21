@@ -116,6 +116,31 @@ export const getBlogById = async (blogId) => {
   }
 };
 
+export const getUserBlogById = async (blogId) => {
+  const authToken = getAccessToken();
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/blog/get-blog-by-id/${blogId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "applicationn/json",
+          authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { error: data.message };
+    }
+
+    return data;
+  } catch (error) {
+    return { error: "something went wrong" };
+  }
+};
+
 export const createBlog = async (blogData) => {
   const authToken = getAccessToken();
   try {

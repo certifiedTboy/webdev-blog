@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Interweave } from "interweave";
 import { useSelector, useDispatch } from "react-redux";
 import Moment from "react-moment";
@@ -24,17 +24,6 @@ const SingleBlog = ({ blog }) => {
   const { otherUserProfilePicture } = useSelector((state) => state.profile);
 
   useEffect(() => {
-    const splitedProfile = otherUserProfilePicture.split(":");
-    if (splitedProfile[0] === "https") {
-      return setProfilePicture(otherUserProfilePicture);
-    } else {
-      return setProfilePicture(
-        `http://localhost:3001/${otherUserProfilePicture}`
-      );
-    }
-  }, [otherUserProfilePicture]);
-
-  useEffect(() => {
     if (blog.user) {
       setBlogOwner(blog.user.username);
     }
@@ -51,7 +40,7 @@ const SingleBlog = ({ blog }) => {
     await dispatch(onFollowUser(blog.user.username));
   };
 
-  const { follow_loading, follow_success, follow_failed } = useSelector(
+  const { follow_success, follow_failed } = useSelector(
     (state) => state.follow
   );
 
@@ -80,6 +69,19 @@ const SingleBlog = ({ blog }) => {
       }
     }
   }, [followers]);
+
+  useEffect(() => {
+    if (otherUserProfilePicture) {
+      const splitedProfile = otherUserProfilePicture.split(":");
+      if (splitedProfile[0] === "https") {
+        return setProfilePicture(otherUserProfilePicture);
+      } else {
+        return setProfilePicture(
+          `http://localhost:3001/${otherUserProfilePicture}`
+        );
+      }
+    }
+  }, [otherUserProfilePicture]);
 
   return (
     <div className="mt-150 mb-150 mt-5">

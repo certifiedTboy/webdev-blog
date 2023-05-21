@@ -27,13 +27,15 @@ const MainNavigation = ({ scrollTop }) => {
   }, [user, dispatch, success.successType]);
 
   useEffect(() => {
-    const splitedProfile = currentUserProfilePicture.split(":");
-    if (splitedProfile[0] === "https") {
-      return setProfilePicture(currentUserProfilePicture);
-    } else {
-      return setProfilePicture(
-        `http://localhost:3001/${currentUserProfilePicture}`
-      );
+    if (currentUserProfilePicture) {
+      const splitedProfile = currentUserProfilePicture.split(":");
+      if (splitedProfile[0] === "https") {
+        return setProfilePicture(currentUserProfilePicture);
+      } else {
+        return setProfilePicture(
+          `http://localhost:3001/${currentUserProfilePicture}`
+        );
+      }
     }
   }, [currentUserProfilePicture]);
 

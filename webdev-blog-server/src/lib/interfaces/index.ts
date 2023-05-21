@@ -1,4 +1,4 @@
-import IValidationChecker from "./IvalidationChecker";
+import IValidationChecker from "./IValidationChecker";
 
 
 export {

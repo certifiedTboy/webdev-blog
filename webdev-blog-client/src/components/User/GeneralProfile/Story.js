@@ -29,17 +29,6 @@ const Story = ({ userData }) => {
   const { user } = useSelector((state) => state.login);
   const { otherUserProfilePicture } = useSelector((state) => state.profile);
 
-  useEffect(() => {
-    const splitedProfile = otherUserProfilePicture.split(":");
-    if (splitedProfile[0] === "https") {
-      return setProfilePicture(otherUserProfilePicture);
-    } else {
-      return setProfilePicture(
-        `http://localhost:3001/${otherUserProfilePicture}`
-      );
-    }
-  }, [otherUserProfilePicture]);
-
   const onShowModal = (event) => {
     event.preventDefault();
     if (!showUpdateModal) {
@@ -115,6 +104,19 @@ const Story = ({ userData }) => {
       }
     }
   }, [followers]);
+
+  useEffect(() => {
+    if (otherUserProfilePicture) {
+      const splitedProfile = otherUserProfilePicture.split(":");
+      if (splitedProfile[0] === "https") {
+        return setProfilePicture(otherUserProfilePicture);
+      } else {
+        return setProfilePicture(
+          `http://localhost:3001/${otherUserProfilePicture}`
+        );
+      }
+    }
+  }, [otherUserProfilePicture]);
 
   return (
     <>

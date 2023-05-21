@@ -11,10 +11,62 @@ import {
  */
 class UserHelper {
   /**
+   * @method createUser
+   * @static
+   * @async
+   * @param {string} firstName
+   * @param {string} lastName
+   * @param {string} email
+   * @param {string} profilePicture
+   * @returns {Promise<User>}
+   */
+  static async createUser(
+    firstName: string,
+    lastName: string,
+    email: string,
+    profilePicture: string
+  ) {
+    const uniqueSuffix = Math.round(Math.random() * 1e9);
+
+    const  username = email.split("@")[0] + "-" + uniqueSuffix;
+    const userData = {
+     username,
+      firstName,
+      lastName,
+      email,
+      profilePicture,
+    };
+    const user = new User(userData);
+
+    await user.save();
+    return user;
+  }
+
+   /**
+   * @method updateUser
+   * @static
+   * @async
+   * @param {string} userId
+   * @param {string} profilePicture
+   * @returns {Promise<User>}
+   */
+    static async updateUser(
+      userId:string,
+      profilePicture: string
+    ) {
+      
+      const userData = {
+        profilePicture,
+      };
+      const updatedUser = await User.findByIdAndUpdate(userId, userData)
+      return updatedUser;
+    }
+
+  /**
    * @method profileUpload
    * @static
    * @async
-   * @params {string} userId
+   * @param {string} userId
    * @returns {Promise<User>}
    */
   static async profileUpload(userId: string, imagePath: string) {
@@ -34,7 +86,10 @@ class UserHelper {
    * @method updateUserAbout
    * @static
    * @async
-   * @params {string} userId
+   * @param {string} userId
+   * @param {string} firstName
+   * @param {string} lastName
+   * @param {string} about
    * @returns {Promise<User>}
    */
 
@@ -65,12 +120,27 @@ class UserHelper {
    * @returns {Promise<User>}
    */
   static async checkThatEmailExist(email: string) {
-    const foundUser = await User.findOne({ where: { email } });
+    const foundUser = await User.findOne({ email });
     if (foundUser) {
       return foundUser;
     }
 
     throw new NotFoundError("User not found!");
+  }
+
+  /**
+   * @method checkThatUserExistByEmail
+   * @static
+   * @async
+   * @param {string} email
+   * @returns {Promise<User>}
+   */
+   static async checkThatUserExistByEmail(email: string) {
+    const foundUser = await User.findOne( {email});
+    if (foundUser) {
+      return foundUser;
+    }
+
   }
 
   /**
@@ -134,7 +204,6 @@ class UserHelper {
     const foundUser = await User.findOne({ username }).select("-password");
 
     if (foundUser) {
-      
       return foundUser;
     } else {
       throw new NotFoundError("user does not exist");
@@ -146,6 +215,7 @@ class UserHelper {
    * @static
    * @async
    * @param {string} userId
+   * @param {string} username
    * @returns {Promise<User>}
    */
   static async updateUserFollower(
@@ -221,7 +291,7 @@ class UserHelper {
    * @method checkUserByUsername
    * @static
    * @async
-   * @param {string} userId
+   * @param {string} username
    * @returns {Promise<User>}
    */
   private static async checkUserByUsername(username: string) {
@@ -236,7 +306,8 @@ class UserHelper {
   /**
    * @method checkThatUserAlreadyFollowed
    * @static
-   * @param {string} blogId
+   * @param {string} followerId
+   * @param {string} userId
    * @returns {Promise<Boolean>}
    */
   static async checkThatUserAlreadyFollowed(

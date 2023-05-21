@@ -14,6 +14,7 @@ router.get(
   BlogControllers.getBlogById
 );
 router.get("/get-blogs-by-user/:username", BlogControllers.getAllBlogsByUser);
+router.get("/get-blog-by-id/:blogId", Authenticate, BlogControllers.getBlogById);
 router.get(
   "/edit/check-that-blog-exist/:title",
   Authenticate,

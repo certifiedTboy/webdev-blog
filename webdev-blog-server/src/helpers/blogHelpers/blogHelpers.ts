@@ -186,7 +186,6 @@ class BlogHelpers {
     try {
       const user = await UserHelper.checkThatUserExistById(userId);
       const blog = await this.checkThatBlogExistById(blogId);
-
       const userAlreadyReactedToAbout =
         await this.checkThatUserAlreadyReactToBlog(blogId, userId);
 
@@ -194,7 +193,6 @@ class BlogHelpers {
         const reactionData = {
           userId: user?._id,
           username: user?.username,
-          name: user?.firstName + " " + user?.lastName,
           reaction,
         };
         blog.reactions.push(reactionData);

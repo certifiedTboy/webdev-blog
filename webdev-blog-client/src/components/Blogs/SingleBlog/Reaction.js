@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getBlogById } from "../../../lib/APIs/BlogAPIs/BlogAPI";
+import { getUserBlogById } from "../../../lib/APIs/BlogAPIs/BlogAPI";
 import { reactToBlog } from "../../../lib/APIs/BlogAPIs/BlogAPI";
 
 const Reaction = ({ reaction, blogId }) => {
   const [reactions, setReactions] = useState([]);
   const [requestSuccess, setRequestSuccess] = useState(false);
   const [id, setId] = useState("");
+  const reactionRef = useRef("");
 
   const { user } = useSelector((state) => state.login);
 
@@ -18,7 +19,8 @@ const Reaction = ({ reaction, blogId }) => {
 
   const onReactToBlog = async (event) => {
     setRequestSuccess(false);
-    const response = await reactToBlog(event.target.value, id);
+
+    const response = await reactToBlog(reactionRef.current.value, id);
     if (!response.error) {
       return setRequestSuccess(true);
     } else {
@@ -28,7 +30,7 @@ const Reaction = ({ reaction, blogId }) => {
 
   useEffect(() => {
     const onGetBlogById = async () => {
-      const response = await getBlogById(id);
+      const response = await getUserBlogById(id);
 
       if (!response.error) {
         return setReactions(response.data.reactions);
@@ -44,6 +46,7 @@ const Reaction = ({ reaction, blogId }) => {
           type="submit"
           class="btn-primary position-relative"
           value="like"
+          ref={reactionRef}
           onClick={onReactToBlog}
         >
           <span>
