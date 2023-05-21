@@ -7,6 +7,7 @@ import ProfileUpload from "./Modals/ProfileUpload";
 import classes from "./GeneralProfile.module.css";
 
 const UserDetails = ({ userData }) => {
+  const [profilePicture, setProfilePicture] = useState("");
   const { success } = useSelector((state) => state.request);
   const { otherUserProfilePicture } = useSelector((state) => state.profile);
   const { user } = useSelector((state) => state.login);
@@ -16,6 +17,17 @@ const UserDetails = ({ userData }) => {
   const dispatch = useDispatch();
   const params = useParams();
   const { username } = params;
+
+  useEffect(() => {
+    const splitedProfile = otherUserProfilePicture.split(":");
+    if (splitedProfile[0] === "https") {
+      return setProfilePicture(otherUserProfilePicture);
+    } else {
+      return setProfilePicture(
+        `http://localhost:3001/${otherUserProfilePicture}`
+      );
+    }
+  }, [otherUserProfilePicture]);
 
   const onShowModal = (event) => {
     event.preventDefault();
@@ -64,7 +76,7 @@ const UserDetails = ({ userData }) => {
         <div>
           <img
             className={classes.profile_image}
-            src={`http://localhost:3001/${otherUserProfilePicture}`}
+            src={`${profilePicture}`}
             alt="profile_picture"
           />
           {user && user.username === userData.username && (

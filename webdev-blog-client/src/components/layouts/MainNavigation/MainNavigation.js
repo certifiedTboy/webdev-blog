@@ -4,11 +4,13 @@ import { Link } from "react-scroll";
 import { NavLink } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { getUserProfilePicture } from "../../../lib/generaRequestRedux/profileActions";
+import { logOut } from "../../../lib/APIs/AuthApis/emailLogin";
 import webdevLogo from "../../../Assets/webdev_logo.jpg";
 import classes from "./MainNav.module.css";
 
 const MainNavigation = ({ scrollTop }) => {
   const [show, setShow] = useState(false);
+  const [profilePicture, setProfilePicture] = useState("");
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.login);
   const { success } = useSelector((state) => state.request);
@@ -23,6 +25,17 @@ const MainNavigation = ({ scrollTop }) => {
       onGetProfilePicture();
     }
   }, [user, dispatch, success.successType]);
+
+  useEffect(() => {
+    const splitedProfile = currentUserProfilePicture.split(":");
+    if (splitedProfile[0] === "https") {
+      return setProfilePicture(currentUserProfilePicture);
+    } else {
+      return setProfilePicture(
+        `http://localhost:3001/${currentUserProfilePicture}`
+      );
+    }
+  }, [currentUserProfilePicture]);
 
   return (
     <>
@@ -45,7 +58,7 @@ const MainNavigation = ({ scrollTop }) => {
             {user && (
               <img
                 className={classes.mobile_img}
-                src={`http://localhost:3001/${currentUserProfilePicture}`}
+                src={`${profilePicture}`}
                 alt="profile_picture"
               />
             )}
@@ -120,14 +133,9 @@ const MainNavigation = ({ scrollTop }) => {
 
                 <ul className="dropdown-menu">
                   <li>
-                    <NavLink className="dropdown-item" to="/login">
+                    <a className="dropdown-item" href="/login">
                       Login
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/signup">
-                      Signup
-                    </NavLink>
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -152,10 +160,7 @@ const MainNavigation = ({ scrollTop }) => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <img
-                    src={`http://localhost:3001/${currentUserProfilePicture}`}
-                    alt="profile_picture"
-                  />
+                  <img src={`${profilePicture}`} alt="profile_picture" />
                 </NavLink>
 
                 <ul className="dropdown-menu">
@@ -168,7 +173,7 @@ const MainNavigation = ({ scrollTop }) => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item" to="/signout">
+                    <NavLink className="dropdown-item" onClick={logOut}>
                       Signout
                     </NavLink>
                   </li>
@@ -293,9 +298,9 @@ const MainNavigation = ({ scrollTop }) => {
               {!user && (
                 <ul className="dropdown-menu">
                   <li>
-                    <NavLink className="dropdown-item" to={`/login`}>
+                    <a className="dropdown-item" href="/login">
                       Login
-                    </NavLink>
+                    </a>
                   </li>
                 </ul>
               )}
@@ -311,7 +316,9 @@ const MainNavigation = ({ scrollTop }) => {
                   </li>
 
                   <li>
-                    <NavLink className="dropdown-item">Logout</NavLink>
+                    <NavLink className="dropdown-item" onClick={logOut}>
+                      Logout
+                    </NavLink>
                   </li>
                 </ul>
               )}

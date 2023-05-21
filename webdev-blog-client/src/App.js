@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+// import { GoogleOAuthProvider } from "@react-oauth/google";
 import Layout from "./components/layouts/Layout";
 import GeneralRoutes from "./components/Routes/GeneralRoutes";
 
-function App() {
+const App = () => {
   const [scrollTop, setScrollTop] = useState(0);
 
   useEffect(() => {
@@ -22,6 +23,6 @@ function App() {
       <GeneralRoutes />
     </Layout>
   );
-}
+};
 
 export default App;

@@ -1,6 +1,9 @@
 import { loginFail, loginPending, loginSuccess } from "./loginSlice";
 
-import { loginUserWithEmail } from "../../../../lib/APIs/AuthApis/emailLogin";
+import {
+  loginUserWithEmail,
+  googleLogin,
+} from "../../../../lib/APIs/AuthApis/emailLogin";
 
 export const newUserLogin = (frmDt) => async (dispatch) => {
   if (frmDt.email.trim().length === 0 || frmDt.password.trim().length === 0) {
@@ -20,6 +23,19 @@ export const newUserLogin = (frmDt) => async (dispatch) => {
       dispatch(loginSuccess(response.user));
     }
   } catch (error) {
-    dispatch(loginFail({ error: "Server Error" }));
+    dispatch(loginFail({ error: "something went wrong" }));
+  }
+};
+
+export const loginWithGoogle = (userData) => async (dispatch) => {
+  try {
+    const response = await googleLogin(userData);
+    if (response.error) {
+      dispatch(loginFail({ error: response.error }));
+    } else {
+      dispatch(loginSuccess(response.user));
+    }
+  } catch (error) {
+    dispatch(loginFail({ error: "something went wrong" }));
   }
 };

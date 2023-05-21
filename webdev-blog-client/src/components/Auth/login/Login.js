@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
+import googleOneTap from "google-one-tap";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
-import { ReactComponent as GoogleLogo } from "../../../Assets/google.svg";
-import getGoogleUrl from "../../../lib/APIs/AuthApis/getGoogleUrl";
-import { newUserLogin } from "./loginRedux/loginActions";
+import { useParams } from "react-router-dom";
+import { newUserLogin, loginWithGoogle } from "./loginRedux/loginActions";
 import {
   createEmailVerification,
   verifyEmailCreated,
 } from "../../../lib/generaRequestRedux/requestActions";
+import { ReactComponent as GoogleLogo } from "../../../Assets/google.svg";
 import MiniLoader from "../../UI/Loader/MiniLoader";
 import classes from "./login.module.css";
 
@@ -29,10 +29,6 @@ const Login = () => {
     success,
     error: requestError,
   } = useSelector((state) => state.request);
-
-  //google oauth login state
-  const location = useLocation();
-  let from = location.state?.from?.pathname || "/";
 
   const dispatch = useDispatch();
 
@@ -94,6 +90,21 @@ const Login = () => {
     }
   }, [verificationData]);
 
+  const options = {
+    client_id:
+      "620166969775-lg6nauvvltv5b61l3uo065nv2li19fn8.apps.googleusercontent.com",
+    auto_select: false, // optional
+    cancel_on_tap_outside: false, // optional
+    context: "signin", // optional
+  };
+
+  useEffect(() => {
+    googleOneTap(options, async (response) => {
+      const token = encodeURIComponent(response.credential);
+      dispatch(loginWithGoogle(token));
+    });
+  }, []);
+
   return (
     <div className={`container ${classes.formBorder}`}>
       <div className="row">
@@ -151,9 +162,8 @@ const Login = () => {
               />
             </div>
           </form>
-
           <div>
-            <a href={getGoogleUrl(from)} target="_blank" rel="noreferrer">
+            <a href="#">
               <GoogleLogo style={{ height: "2rem" }} />
               Login with Google
             </a>

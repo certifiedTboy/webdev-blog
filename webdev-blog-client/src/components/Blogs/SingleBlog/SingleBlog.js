@@ -15,12 +15,24 @@ import Reaction from "./Reaction";
 const SingleBlog = ({ blog }) => {
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
+  const [profilePicture, setProfilePicture] = useState("");
   const [userIsFollowing, setUserIsFollowing] = useState(false);
   const [blogOwner, setBlogOwner] = useState("");
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.login);
   const { otherUserProfilePicture } = useSelector((state) => state.profile);
+
+  useEffect(() => {
+    const splitedProfile = otherUserProfilePicture.split(":");
+    if (splitedProfile[0] === "https") {
+      return setProfilePicture(otherUserProfilePicture);
+    } else {
+      return setProfilePicture(
+        `http://localhost:3001/${otherUserProfilePicture}`
+      );
+    }
+  }, [otherUserProfilePicture]);
 
   useEffect(() => {
     if (blog.user) {
@@ -80,10 +92,7 @@ const SingleBlog = ({ blog }) => {
                 <p className="blog-meta d-inline mr-2">
                   {blog.user && (
                     <span className="author">
-                      <img
-                        className="user_image"
-                        src={`http://localhost:3001/${otherUserProfilePicture}`}
-                      />
+                      <img className="user_image" src={`${profilePicture}`} />
                       <i className="fas fa-user ml-2"></i>
                       <NavLink to={`/w-d/${blog.user.username}`}>
                         {" "}

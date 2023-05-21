@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Home from "../components/Home/Home";
 import Loader from "../components/UI/Loader/Loader";
 

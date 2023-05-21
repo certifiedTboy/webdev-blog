@@ -14,6 +14,7 @@ import classes from "./GeneralProfile.module.css";
 const Story = ({ userData }) => {
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
+  const [profilePicture, setProfilePicture] = useState("");
   const [profileOwner, setProfileOwner] = useState("");
   const [userIsFollowing, setUserIsFollowing] = useState(false);
   const [showAbout, setShowAbout] = useState(true);
@@ -27,6 +28,17 @@ const Story = ({ userData }) => {
 
   const { user } = useSelector((state) => state.login);
   const { otherUserProfilePicture } = useSelector((state) => state.profile);
+
+  useEffect(() => {
+    const splitedProfile = otherUserProfilePicture.split(":");
+    if (splitedProfile[0] === "https") {
+      return setProfilePicture(otherUserProfilePicture);
+    } else {
+      return setProfilePicture(
+        `http://localhost:3001/${otherUserProfilePicture}`
+      );
+    }
+  }, [otherUserProfilePicture]);
 
   const onShowModal = (event) => {
     event.preventDefault();
@@ -117,7 +129,7 @@ const Story = ({ userData }) => {
           >
             <img
               className={classes.profile_image}
-              src={`http://localhost:3001/${otherUserProfilePicture}`}
+              src={`${profilePicture}`}
               alt="profile_picture"
             />
             {user && user.username === userData.username && (

@@ -70,3 +70,37 @@ export const verifyEmail = async (verificationData) => {
     return { error: "something went wrong" };
   }
 };
+
+export const googleLogin = async (token) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/google/${token}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { error: data.message };
+    }
+
+    const TIMESTAMP = Date.now();
+    const expiresAt = TIMESTAMP + 1000 * 60 * 60 * 24;
+    localStorage.setItem("accessJWT", data.data.authToken);
+    localStorage.setItem("C_U", JSON.stringify(data.data.userData));
+    localStorage.setItem("expiresAt", expiresAt);
+
+    return { message: data.message, user: data.data.userData };
+  } catch (error) {
+    return { error: "something went wrong" };
+  }
+};
+
+export const logOut = async () => {
+  localStorage.removeItem("accessJWT");
+  localStorage.removeItem("C_U");
+  localStorage.removeItem("expiresAt");
+  localStorage.removeItem("loginData");
+};
