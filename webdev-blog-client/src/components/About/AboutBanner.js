@@ -8,7 +8,7 @@ const AboutBanner = () => {
         <div className="row">
           <div className="col-lg-8 offset-lg-2 text-center">
             <div className="breadcrumb-text">
-              <p>We sale fresh fruits</p>
+              {/* <p>We sale fresh fruits</p> */}
               <h1>About Us</h1>
             </div>
           </div>

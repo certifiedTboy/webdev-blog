@@ -27,18 +27,21 @@ const Banner = () => {
               <div className="abt-text">
                 <p className="top-sub">Since Year 1999</p>
                 <h2>
-                  We are <span className="orange-text">Fruitkha</span>
+                  Wed-Dev <span className="orange-text">Blog</span>
                 </h2>
                 <p>
-                  Etiam vulputate ut augue vel sodales. In sollicitudin neque et
-                  massa porttitor vestibulum ac vel nisi. Vestibulum placerat
-                  eget dolor sit amet posuere. In ut dolor aliquet, aliquet
-                  sapien sed, interdum velit. Nam eu molestie lorem.
+                  Welcome to web-dev blog, where we delve into the exciting
+                  world of technology, innovation, and the digital landscape. In
+                  this rapidly evolving era, where advancements occur at an
+                  unprecedented pace, it is crucial to stay informed and
+                  connected to the latest trends, breakthroughs, and
+                  transformative ideas that shape our lives.
                 </p>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Sapiente facilis illo repellat veritatis minus, et labore
-                  minima mollitia qui ducimus.
+                  Here, we aim to be your go-to destination for all things tech,
+                  offering thought-provoking insights, informative articles, and
+                  engaging discussions that cater to both tech enthusiasts and
+                  casual readers alike.
                 </p>
                 <NavLink to="/about" className="boxed-btn mt-4">
                   know more

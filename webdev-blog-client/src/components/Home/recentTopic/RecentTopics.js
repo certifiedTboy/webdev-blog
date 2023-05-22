@@ -56,7 +56,7 @@ const RecentTopic = () => {
               <h3>
                 <span className="orange-text">Recent</span> Blogs
               </h3>
-              <p>Read our recent blogs</p>
+              {/* <p>Read our recent blogs</p> */}
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ const RecentTopic = () => {
             {errorMessage.error && (
               <>
                 <div class="alert alert-danger text-center" role="alert">
-                  {errorMessage.error}
+                  {/* {errorMessage.error} */} Server still in Development
                 </div>
                 <a className="btn btn-warning" href="/home">
                   Reload Page
