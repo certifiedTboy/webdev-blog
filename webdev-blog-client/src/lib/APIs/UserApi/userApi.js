@@ -63,7 +63,6 @@ export const updateUserDetails = async (updateData) => {
 
 export const uploadImage = async (image) => {
   const authToken = localStorage.getItem("accessJWT");
-  console.log(authToken);
   const formData = new FormData();
   formData.append("image", image);
 
@@ -74,7 +73,6 @@ export const uploadImage = async (image) => {
         method: "PUT",
         headers: {
           Accept: "application/json",
-          "Content-Type": "multipart/form-data",
           authorization: `Bearer ${authToken}`,
         },
         body: formData,

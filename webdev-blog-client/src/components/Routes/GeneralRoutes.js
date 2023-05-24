@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ProtectedRoutes from "./ProtectedRoutes";
 import HomePage from "../../pages/HomePage";
 import Blogs from "../../pages/Blogs";
 import Blog from "../../pages/Blog";
@@ -13,7 +15,7 @@ import WriteArticle from "../../pages/WriteArticle";
 // const NotFoundPage = React.lazy(() => import("../Errors/NotFoundPage.js"));
 
 const GeneralRoutes = () => {
-  //   const { user } = useSelector((state) => state.login);
+  const { user } = useSelector((state) => state.login);
   return (
     <Routes>
       <Route path="*" element={<NotFoundPage />} />
@@ -23,15 +25,38 @@ const GeneralRoutes = () => {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/w-d/:username" element={<ProfilePage />} />
-      <Route path="/admin" element={<AdminPage />} />
-      <Route path="/write-article" element={<WriteArticle />} />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoutes user={user}>
+            {" "}
+            <AdminPage />{" "}
+          </ProtectedRoutes>
+        }
+      />
+
+      <Route
+        path="/write-article"
+        element={
+          <ProtectedRoutes user={user}>
+            <WriteArticle />{" "}
+          </ProtectedRoutes>
+        }
+      />
       <Route
         path="/auth/account/verify/:verificationData"
         element={<LoginPage />}
       />
 
       <Route path="/blogs/:title" element={<Blog />} />
-      <Route path="/blogs/edit/:blogId" element={<WriteArticle />} />
+      <Route
+        path="/blogs/edit/:blogId"
+        element={
+          <ProtectedRoutes user={user}>
+            <WriteArticle />{" "}
+          </ProtectedRoutes>
+        }
+      />
     </Routes>
   );
 };

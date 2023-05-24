@@ -8,9 +8,12 @@ class UserValidator {
   /**
    * @method checkUpdateDataIsValid
    * @static
-   * @returns {string}
+   * @param {string} firstName
+   * @param {string} lastName
+   * @param {string} about
+   * @returns {void}
    */
-   static async checkUpdateDataIsValid(req: any, res: Response, next: NextFunction) {
+   static async checkUpdateDataIsValid(req: any, res: Response, next: NextFunction):Promise <void> {
     const { firstName, lastName, about } = req.body;
     try {
       if (req.user) {

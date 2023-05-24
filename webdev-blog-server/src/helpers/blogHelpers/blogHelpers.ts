@@ -15,14 +15,18 @@ class BlogHelpers {
    * @method createBlog
    * @static
    * @param {string} userId
-   * @param {string} blogContent
+   * @param {string} title
+   * @param {string} description
+   * @param {string} content
+   * @param {string} category
    * @returns {Promise<Blog>}
    */
   static async createBlog(
     userId: string,
     title: string,
     description: string,
-    content: string
+    content: string, 
+    category:string
   ): Promise<any> {
     try {
       const user = await UserHelper.checkThatUserExistById(userId);
@@ -31,6 +35,7 @@ class BlogHelpers {
           title,
           description,
           content,
+          category,
           user: {
             userId: user._id,
             username: user.username,
@@ -60,6 +65,7 @@ class BlogHelpers {
    * @param {string} title
    * @param {string} description
    * @param {string} content
+   * @param {string} category
    * @returns {Promise<Blog>}
    */
   static async updateBlogById(
@@ -67,7 +73,8 @@ class BlogHelpers {
     blogId: string,
     title: string,
     description: string,
-    content: string
+    content: string, 
+    category: string
   ): Promise<any> {
     try {
       const user = await UserHelper.checkThatUserExistById(userId);
@@ -76,6 +83,7 @@ class BlogHelpers {
           title,
           description,
           content,
+          category,
           user: {
             userId: user._id,
             username: user.username,
@@ -84,6 +92,7 @@ class BlogHelpers {
           },
         };
 
+        console.log(blogData)
         const updatedBlog = await Blog.findByIdAndUpdate(blogId, blogData);
         if (!updatedBlog) {
           throw new UnprocessableError("something went wrong");
@@ -122,7 +131,6 @@ class BlogHelpers {
   /**
    * @method getBlogTitle
    * @static
-   * @param {string} userId
    * @param {string} title
    * @returns {Promise<Blog>}
    */
@@ -141,6 +149,8 @@ class BlogHelpers {
   /**
    * @method getAllBlogs
    * @static
+   * @param {number} skip
+   * @param {number} limit 
    * @returns {Promise<Blog>}
    */
   static async getAllBlogs(skip:number, limit:number): Promise<any> {
@@ -157,6 +167,7 @@ class BlogHelpers {
     /**
    * @method getAllBlogsByUser
    * @static
+   * @param {string} username
    * @returns {Promise<Blog>}
    */
      static async allBlogsByUser(username:string): Promise<any> {
@@ -216,6 +227,7 @@ class BlogHelpers {
    * @method checkThatUserAlreadyReactToBlog
    * @static
    * @param {string} blogId
+   * @param {string} userId
    * @returns {Promise<Blog>}
    */
   static async checkThatUserAlreadyReactToBlog(

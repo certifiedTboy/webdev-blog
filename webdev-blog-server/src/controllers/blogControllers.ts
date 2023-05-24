@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+const perfectExpressSanitizer = require("perfect-express-sanitizer");
 import BlogHelpers from "../helpers/blogHelpers/blogHelpers";
 import { getPagination } from "../utils/pagination/pagination";
 import { ResponseHandler } from "../lib/helpers";
@@ -22,14 +23,30 @@ class BlogControllers {
     next: NextFunction
   ): Promise<any> {
     const userId = req.user.id;
-    const { title, description, content } = req.body;
+    const { title, description, content, category } = req.body;
 
     try {
+      const titleInput = perfectExpressSanitizer.sanitize.prepareSanitize(
+        title,
+        { xss: true, noSql: true, sql: true, level: 5 }
+      );
+
+      const descriptionInput = perfectExpressSanitizer.sanitize.prepareSanitize(
+        description,
+        { xss: true, noSql: true, sql: true, level: 5 }
+      );
+
+      const categoryInput = perfectExpressSanitizer.sanitize.prepareSanitize(
+       category,
+        { xss: true, noSql: true, sql: true, level: 5 }
+      );
       const blog = await BlogHelpers.createBlog(
         userId,
-        title,
-        description,
-        content
+        titleInput,
+        descriptionInput,
+        content,
+        categoryInput
+
       );
 
       if (blog) {
@@ -56,15 +73,32 @@ class BlogControllers {
   ): Promise<any> {
     const userId = req.user.id;
     const { blogId } = req.params;
-    const { title, description, content } = req.body;
+    const { title, description, content, category } = req.body;
 
     try {
+
+      const titleInput = perfectExpressSanitizer.sanitize.prepareSanitize(
+        title,
+        { xss: true, noSql: true, sql: true, level: 5 }
+      );
+
+      const descriptionInput = perfectExpressSanitizer.sanitize.prepareSanitize(
+        description,
+        { xss: true, noSql: true, sql: true, level: 5 }
+      );
+
+      const categoryInput = perfectExpressSanitizer.sanitize.prepareSanitize(
+       category,
+        { xss: true, noSql: true, sql: true, level: 5 }
+      );
+
       const blog = await BlogHelpers.updateBlogById(
         userId,
         blogId,
         title,
         description,
-        content
+        content,
+        categoryInput
       );
 
       if (blog) {
@@ -152,8 +186,7 @@ class BlogControllers {
     }
   }
 
-
-    /**
+  /**
    * @method getAllBlogsByUser
    * @static
    * @async
@@ -162,22 +195,21 @@ class BlogControllers {
    * @param {NextFunction} next
    * @returns {ICreateBlog}
    */
-     static async getAllBlogsByUser(
-      req: any,
-      res: Response,
-      next: NextFunction
-    ): Promise<any> {
-      try {
-        const {username} = req.params
-        const blogs = await BlogHelpers.allBlogsByUser(username);
-        if (blogs) {
-          
-          ResponseHandler.ok(res, blogs, "success");
-        }
-      } catch (err) {
-        next(err);
+  static async getAllBlogsByUser(
+    req: any,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const { username } = req.params;
+      const blogs = await BlogHelpers.allBlogsByUser(username);
+      if (blogs) {
+        ResponseHandler.ok(res, blogs, "success");
       }
+    } catch (err) {
+      next(err);
     }
+  }
 
   /**
    * @method reactToBlog

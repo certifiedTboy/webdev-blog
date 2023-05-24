@@ -9,9 +9,12 @@ class BlogValidator {
   /**
    * @method checkDataValidity
    * @static
-   * @returns {string}
+   * @param {string} title
+   * @param {string} description
+   * @param {string} category
+   * @returns {void}
    */
-  static async checkDataValidity(req: any, res: Response, next: NextFunction) {
+  static async checkDataValidity(req: any, res: Response, next: NextFunction):Promise<void> {
     const { title, description, category } = req.body;
     try {
       if (req.user) {
@@ -31,9 +34,10 @@ class BlogValidator {
    /**
    * @method checkUserName
    * @static
-   * @returns {string}
+   * @param {string} userId
+   * @returns {void}
    */
-    static async checkUserName(req: any, res: Response, next: NextFunction) {
+    static async checkUserName(req: any, res: Response, next: NextFunction):Promise <void> {
       try {
         if(req.user){
           const user = await UserHelper.checkThatUserExistById(req.user.id)

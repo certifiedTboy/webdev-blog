@@ -9,6 +9,9 @@ const blogSchema = new Schema(
     description: {
       type: String,
     },
+    category: {
+type: String
+    },
     content: {
       type: String,
     },
@@ -17,6 +20,7 @@ const blogSchema = new Schema(
       type: Boolean,
       default: false,
     },
+  
     user: {
       userId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
       username: String,

@@ -41,7 +41,7 @@ const UserDetails = ({ userData }) => {
       dispatch(onGetOtherUserProfilePicture(username));
     };
     getProfilePicture();
-  }, [username, dispatch]);
+  }, [username, dispatch, success.successType]);
 
   useEffect(() => {
     if (success.successType === "image-upload") {
@@ -54,7 +54,6 @@ const UserDetails = ({ userData }) => {
       return setShowUpdateModal(false);
     }
   }, [success.successType]);
-
 
   useEffect(() => {
     if (otherUserProfilePicture) {

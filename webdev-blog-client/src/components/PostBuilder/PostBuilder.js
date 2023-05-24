@@ -18,7 +18,7 @@ import {
   updateBlog,
   publishBlog,
 } from "../../lib/APIs/BlogAPIs/BlogAPI";
-import {getUserByUsername} from "../../lib/APIs/UserApi/userApi"
+import { getUserByUsername } from "../../lib/APIs/UserApi/userApi";
 import { toolbar, hashtag, mention } from "./Options";
 import PreviewModal from "./PreviewModal";
 
@@ -26,8 +26,8 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./PostBuilder.css";
 
 const PostBuilder = () => {
-  const [userFirstname, setUserFirstname] = useState()
-  const [userLastname, setUserLastname] = useState()
+  const [userFirstname, setUserFirstname] = useState();
+  const [userLastname, setUserLastname] = useState();
   const [showModal, setShowModal] = useState(false);
   const [isSaved, setIsSaved] = useState(true);
   const [isPublished, setIsPublished] = useState(false);
@@ -46,25 +46,21 @@ const PostBuilder = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const {user} = useSelector((state) => state.login)
+  const { user } = useSelector((state) => state.login);
 
   const { blogId } = params;
 
- 
   useEffect(() => {
-    const getCurrentUserData = async() => {
-      const response = await getUserByUsername(user.username)
-      if(response.message) {
-        setUserFirstname(response.data.firstName)
-        return setUserLastname(response.data.lastName)
+    const getCurrentUserData = async () => {
+      const response = await getUserByUsername(user.username);
+      if (response.message) {
+        setUserFirstname(response.data.firstName);
+        return setUserLastname(response.data.lastName);
       }
-    }
+    };
 
-    getCurrentUserData()
-  }, [user])
-
-
- 
+    getCurrentUserData();
+  }, [user]);
 
   //blog input handlers
   const titleChangeHandler = (event) => {
@@ -99,6 +95,7 @@ const PostBuilder = () => {
     const onGetBlogById = async () => {
       try {
         const response = await getBlogById(blogId);
+        console.log(response);
         // if blog does not exist
         // navigate to create fresh article
         if (response.error) {
@@ -112,6 +109,7 @@ const PostBuilder = () => {
         response.data.isPublished
           ? setIsPublished(true)
           : setIsPublished(false);
+
         const contentBlock = htmlToDraft(response.data.content);
         const contentState = ContentState.createFromBlockArray(
           contentBlock.contentBlocks
@@ -126,23 +124,20 @@ const PostBuilder = () => {
 
   // Create blog handler
   const saveBlogAs = async (event) => {
+    if (!userFirstname || !userLastname) {
+      return setErrorMessage("Update name in profile before creating blog");
+    }
 
-    if(!userFirstname || !userLastname){
-      return setErrorMessage("Update name in profile before creating blog")
+    if (title.trim().length > 50 || description.trim().length > 150) {
+      return setErrorMessage(
+        "Title or Description cannot be longer than 50 and 150 characters respectively"
+      );
     }
 
     if (
-      title.value.trim().length > 50 ||
-      
-      description.value.trim().length > 150
-    ) {
-      return setErrorMessage("Title or Description cannot be longer than 50 and 150 characters respectively");
-    }
-
-    if (
-      title.value === "" ||
+      title === "" ||
       !category ||
-      description.value === "" ||
+      description === "" ||
       contentRef.current.value === ""
     ) {
       return setErrorMessage("Blog inputs can't be empty");
@@ -187,6 +182,7 @@ const PostBuilder = () => {
       description,
       content: contentRef.current.value,
     };
+
     setIsLoading({ state: true, type: "SAVE" });
     try {
       const response = await updateBlog(blogData, createdBlogId);
@@ -361,7 +357,9 @@ const PostBuilder = () => {
                   onChange={categoryChangeHandler}
                   className="form-control"
                 >
-                  <option>Select Category</option>
+                  <option value={category ? category : ""}>
+                    {category ? category : "Select Category"}
+                  </option>
                   <option value="Javascript">Javascript</option>
                   <option value="HTML">HTML</option>
                   <option value="Node Js">Node Js</option>

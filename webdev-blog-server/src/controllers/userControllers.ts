@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, Express } from "express";
+import { Request, Response, NextFunction } from "express";
 import { ResponseHandler } from "../lib/helpers";
 import { ICreateUser } from "../interfaces";
 import UserHelper from "../helpers/userHelpers/userHelpers";
@@ -40,16 +40,14 @@ class UserController {
    * @param {NextFunction} next
    * @returns {Promise <any>}
    */
-  static async uploadProfile(req: any, res: Response, next: NextFunction):Promise<any> {
+  static async uploadProfile(req: any, res: Response, next: NextFunction) {
     const userId = req.user.id;
-    const file = req.file as { [fieldname: string]: Express.Multer.File[] };
-
-    const uploadedImagePath = "uploads/" + req.file.originalname + "-" + userId;
-
+    req.file as { [filename: string]: Express.Multer.File[] };
+    const uploadedFile = "uploads/" + req.file.filename
     try {
       const updatedUser = await UserHelper.profileUpload(
         userId,
-        uploadedImagePath
+        uploadedFile
       );
       ResponseHandler.ok(res, {}, "success");
     } catch (err) {

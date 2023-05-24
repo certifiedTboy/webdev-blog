@@ -1,6 +1,6 @@
 import { Request } from 'express'
-import multer, { FileFilterCallback,  MulterError } from 'multer'
-import * as path from "path";
+import multer, { FileFilterCallback } from 'multer'
+import path from "path"
 
 
 type DestinationCallback = (error: Error | null, destination: string) => void
@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     file: Express.Multer.File,
     callback: DestinationCallback
   ): void => {
-     callback(null, "public/uploads");
+    callback(null, "public/uploads");
   },
 
   filename: (
@@ -37,18 +37,19 @@ const fileFilter = (
   if (
     ext !== ".png" &&
     ext !== ".jpg" &&
-    ext !== ".jpeg" 
+    ext !== ".jpeg"
   ) {
-    callback(new MulterError("LIMIT_UNEXPECTED_FILE"));
+    callback(new Error(`unsupported file format`));
   }
   callback(null, true);
 }
 
 
- const upload = multer({
-  storage:storage,
-  fileFilter 
-});
+const upload = multer({
+  storage: storage,
+  fileFilter
+})
+
+
 
 export default upload
-

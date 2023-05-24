@@ -44,7 +44,7 @@ app.use(cookieParser());
 // app.use(morgan("combined"))
 app.use(cors(corsOption));
 app.use(express.json({ limit: expressOptions.requestSizeLimit }));
-const whiteList = ['/api/v1/blog'];
+const whiteList = ['/api/v1/blog', '/api/v1/user/upload-image'];
 app.use(
   sanitizer.clean({
     xss: true,

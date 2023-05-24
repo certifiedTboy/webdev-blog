@@ -3,6 +3,7 @@ import BlogControllers from "../controllers/blogControllers";
 import BlogAuthorization from "../middlewares/authorization/BlogAuthorization";
 import BlogValidator from "../middlewares/validators/BlogValidation";
 import Authenticate from "../middlewares/Authenticate";
+import DataInputSanitizer from "../middlewares/sanitizer/DataInputSanitizer";
 const router = express.Router();
 
 router.get("/", BlogControllers.getAllBlogs);

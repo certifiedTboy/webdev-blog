@@ -41,10 +41,10 @@ const Banner = () => {
                   Here, we aim to be your go-to destination for all things tech,
                   offering thought-provoking insights, informative articles, and
                   engaging discussions that cater to both tech enthusiasts and
-                  casual readers alike.
+                  casual readers alike...
                 </p>
                 <NavLink to="/about" className="boxed-btn mt-4">
-                  know more
+                  Read more
                 </NavLink>
               </div>
             </div>

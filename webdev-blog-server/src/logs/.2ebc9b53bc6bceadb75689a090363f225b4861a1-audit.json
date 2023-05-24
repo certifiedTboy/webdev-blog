@@ -6,59 +6,9 @@
     "auditLog": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\.2ebc9b53bc6bceadb75689a090363f225b4861a1-audit.json",
     "files": [
         {
-            "date": 1683747063735,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-10.log",
-            "hash": "75d2ac529455992bf89423bba3d128da5790433b738d03f52402eac52fac12cd"
-        },
-        {
-            "date": 1683761993847,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-11.log",
-            "hash": "5fd0e19d255bb6e5236f224489468726a21db824186d168b0ae1dda0a126cd49"
-        },
-        {
-            "date": 1683966903695,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-13.log",
-            "hash": "b12751f9fb551ff6acda80996f1d22a0e7e2b700427257120ec73ec51ee8a6c2"
-        },
-        {
-            "date": 1684021347094,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-14.log",
-            "hash": "bb59d1fc67f67be2969ef7ed77c6ed79470f2491afacc8ff743aefabc8dcbd1e"
-        },
-        {
-            "date": 1684236517366,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-16.log",
-            "hash": "bfabee29862916a0d3bc83dc3ab660291befd1d2637ab1e7a9d6ec2cb0b6954d"
-        },
-        {
-            "date": 1684328597535,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-17.log",
-            "hash": "58d05dde7ef157eb9e7cfc8204b2e6dbc77f22a42e8f52f0a697b563645b851d"
-        },
-        {
-            "date": 1684365129124,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-18.log",
-            "hash": "34284b8315981eeb7ed6694919933b5907ad263b487384ed557866c133347111"
-        },
-        {
-            "date": 1684451351724,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-19.log",
-            "hash": "5d2676bf5638d6ad52c9b26fb33ae7e8612f688704cfb25bc4ed06f03a57d873"
-        },
-        {
-            "date": 1684665346151,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-21.log",
-            "hash": "77137731ea855849e0c26e30b8db990b94a72e1516280292d55103b6c4969aab"
-        },
-        {
-            "date": 1684721393264,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-22.log",
-            "hash": "b788789515e5346d91416130116c0a70d38c7c180b1ed1248174b2ee66d709c3"
-        },
-        {
-            "date": 1684848635543,
-            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-23.log",
-            "hash": "e139c8f0da7ce9cd4800c27bdba145203b1fcd6fc0c29899cbd8b23c7fb4ea70"
+            "date": 1684910568810,
+            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-24.log",
+            "hash": "72cc46018b59b9710ebad4496c162367cf721e8377ba76942108fdb4e5a0abe9"
         }
     ],
     "hashType": "sha256"
