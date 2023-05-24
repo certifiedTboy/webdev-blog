@@ -54,6 +54,11 @@
             "date": 1684721393264,
             "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-22.log",
             "hash": "b788789515e5346d91416130116c0a70d38c7c180b1ed1248174b2ee66d709c3"
+        },
+        {
+            "date": 1684848635543,
+            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-05-23.log",
+            "hash": "e139c8f0da7ce9cd4800c27bdba145203b1fcd6fc0c29899cbd8b23c7fb4ea70"
         }
     ],
     "hashType": "sha256"

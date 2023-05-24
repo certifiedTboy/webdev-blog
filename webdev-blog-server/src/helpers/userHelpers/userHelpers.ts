@@ -52,11 +52,13 @@ class UserHelper {
    */
     static async updateUser(
       userId:string,
-      profilePicture: string
+      profilePicture: string, 
+      firstName:string, lastName:string
     ) {
       
       const userData = {
         profilePicture,
+        firstName, lastName
       };
       const updatedUser = await User.findByIdAndUpdate(userId, userData)
       return updatedUser;
@@ -99,12 +101,13 @@ class UserHelper {
     lastName: string,
     about: string
   ) {
-    const updateData = {
-      firstName,
-      lastName,
-      about,
-    };
 
+      const updateData = {
+        firstName,
+        lastName,
+        about,
+      };
+   
     const updateUser = await User.findByIdAndUpdate(userId, updateData);
     if (updateUser) {
       return updateUser;

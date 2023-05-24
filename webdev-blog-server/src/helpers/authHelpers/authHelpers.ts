@@ -90,7 +90,7 @@ class AuthHelper {
     const user = await UserHelper.checkThatUserExistByEmail(email);
     
     if (user) {
-      await UserHelper.updateUser(user._id.toString(), profilePicture)
+      await UserHelper.updateUser(user._id.toString(), profilePicture, firstName, lastName)
       const userSession = await SessionHelpers.createOrUpdatePlatformSession(
         user._id.toString(),
         DevicePlatformDetector.getMobileCategory(userAgent),

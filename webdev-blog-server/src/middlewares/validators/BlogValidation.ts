@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import UserHelper from "../../helpers/userHelpers/userHelpers";
 import { UnprocessableError } from "../../lib/exceptions";
 
 /**
@@ -26,6 +27,29 @@ class BlogValidator {
       next(error);
     }
   }
+
+   /**
+   * @method checkUserName
+   * @static
+   * @returns {string}
+   */
+    static async checkUserName(req: any, res: Response, next: NextFunction) {
+      try {
+        if(req.user){
+          const user = await UserHelper.checkThatUserExistById(req.user.id)
+
+          if(!user?.firstName || !user?.lastName){
+
+            throw new UnprocessableError("update your account name")
+
+          }
+
+          next()
+        }
+      } catch (error) {
+        next(error);
+      }
+    }
 }
 
 export default BlogValidator;

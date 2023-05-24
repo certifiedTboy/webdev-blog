@@ -17,27 +17,28 @@ const ProfilePage = () => {
   const params = useParams();
   const { username } = params;
 
+
+  const {success} = useSelector((state) => state.request)
+
   useEffect(() => {
     const onGetUserByUsername = async () => {
-      dispatch(requestLoading());
       try {
         const response = await getUserByUsername(username);
 
         if (response.error) {
-          return dispatch(requestFailed(response.error));
+          return dispatch(requestFailed({error:response.error}));
         }
 
         setUserData(response.data);
-        dispatch(requestSuccess("success"));
       } catch (error) {
-        dispatch(requestFailed("something went wrong"));
+        dispatch(requestFailed({error: "something went wrong"}));
       }
     };
     onGetUserByUsername();
-  }, [username, dispatch]);
+  }, [username, success.successType]);
   return (
     <Fragment>
-      <Banner userData={userData} />
+      <Banner />
       <GeneraProfile userData={userData} />
     </Fragment>
   );

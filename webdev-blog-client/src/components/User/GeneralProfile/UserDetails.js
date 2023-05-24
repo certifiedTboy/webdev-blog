@@ -50,10 +50,11 @@ const UserDetails = ({ userData }) => {
   }, [success.successType]);
 
   useEffect(() => {
-    if (success.successType === "update-user") {
+    if (success.successType === "user-update") {
       return setShowUpdateModal(false);
     }
   }, [success.successType]);
+
 
   useEffect(() => {
     if (otherUserProfilePicture) {

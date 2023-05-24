@@ -23,7 +23,7 @@ router.get(
 );
 router.post(
   "/create-blog",
-  Authenticate,
+  Authenticate, BlogValidator.checkUserName,
   BlogValidator.checkDataValidity,
   BlogControllers.createNewBlog
 );

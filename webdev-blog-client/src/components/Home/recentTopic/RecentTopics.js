@@ -133,7 +133,7 @@ const RecentTopic = () => {
             })}
         </div>
         <div className="row">
-          {!isLoading && !errorMessage && (
+          {!isLoading && (
             <div className="col-12 text-center">
               <NavLink to="/blogs" className="boxed-btn">
                 View More

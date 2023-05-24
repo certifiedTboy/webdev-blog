@@ -1,6 +1,7 @@
 import { requestLoading, requestSuccess, requestFailed } from "./requestSlice";
 import {
   createEmailForVerification,
+  logOut,
   verifyEmail,
 } from "../APIs/AuthApis/emailLogin";
 import { updateUserDetails, uploadImage } from "../APIs/UserApi/userApi";
@@ -87,4 +88,21 @@ export const uploadUserImage = (imageData) => async (dispatch) => {
   } catch (error) {
     dispatch(requestFailed({ error: "Something went wrong" }));
   }
+};
+
+export const logOutUser = () => async (dispatch) => {
+  dispatch(requestLoading());
+
+  try {
+    const response = await logOut();
+
+    console.log(response);
+    if (response.message) {
+      dispatch(requestSuccess(response));
+    }
+  } catch (error) {
+    dispatch(requestFailed());
+  }
+
+  dispatch(requestSuccess());
 };

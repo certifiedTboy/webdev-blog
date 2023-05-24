@@ -6,8 +6,7 @@ export const getAccessToken = () => {
   const TIMESTAMP = Date.now();
 
   if (TIMESTAMP > expiresAt) {
-    localStorage.removeItem("accessJWT");
-    localStorage.removeItem("expiresAt");
+    clearCurrentUser();
   }
 
   if (!token) {
@@ -23,8 +22,7 @@ export const getCurrentUser = () => {
   const TIMESTAMP = Date.now();
 
   if (TIMESTAMP > expiresAt) {
-    localStorage.removeItem("C_U");
-    localStorage.removeItem("expiresAt");
+    clearCurrentUser();
   }
 
   if (!currentUser) {
@@ -35,6 +33,8 @@ export const getCurrentUser = () => {
 
 export const clearCurrentUser = () => {
   localStorage.removeItem("accessJWT");
+  localStorage.removeItem("C_U");
+  localStorage.removeItem("expiresAt");
 };
 
 export const updateUserDetails = async (updateData) => {

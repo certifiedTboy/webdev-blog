@@ -94,11 +94,11 @@ const AllBlogs = () => {
         <div className=" col-1 col-md-2"></div>
         <div className=" col-10 col-md-8">
           {" "}
-          {blogContent} {loading && <LoadingPlaceHolder />}
+          {blogContent} {!error.error && loading && <LoadingPlaceHolder />}
         </div>
         <div className="col-1 col-md-2 ">
           <div className="d-none d-sm-none d-md-none d-lg-block">
-            <h1>Empty for Advert Placement</h1>
+           
           </div>
         </div>
       </div>

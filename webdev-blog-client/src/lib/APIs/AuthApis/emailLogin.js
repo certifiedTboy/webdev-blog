@@ -1,3 +1,4 @@
+import { clearCurrentUser } from "../UserApi/userApi";
 const API_BASE_URL = "http://localhost:3001/api/v1";
 
 export const loginUserWithEmail = async (loginData) => {
@@ -102,5 +103,6 @@ export const logOut = async () => {
   localStorage.removeItem("accessJWT");
   localStorage.removeItem("C_U");
   localStorage.removeItem("expiresAt");
-  localStorage.removeItem("loginData");
+
+  return { message: "success" };
 };

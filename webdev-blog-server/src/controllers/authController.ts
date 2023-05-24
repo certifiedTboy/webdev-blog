@@ -63,7 +63,7 @@ class AuthController {
      if(given_name || family_name){
       const userData = await AuthHelper.googleOauthLogin(
         family_name,
-        given_name, 
+        given_name,  
         email, 
         picture,
         req.ip,

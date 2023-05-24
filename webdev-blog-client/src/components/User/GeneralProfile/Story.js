@@ -28,6 +28,7 @@ const Story = ({ userData }) => {
 
   const { user } = useSelector((state) => state.login);
   const { otherUserProfilePicture } = useSelector((state) => state.profile);
+  const {success} = useSelector((state) => state.request)
 
   const onShowModal = (event) => {
     event.preventDefault();
@@ -118,6 +119,18 @@ const Story = ({ userData }) => {
     }
   }, [otherUserProfilePicture]);
 
+  useEffect(() => {
+    if (success.successType === "image-upload") {
+      return setShowUploadModal(false);
+    }
+  }, [success.successType]);
+
+  useEffect(() => {
+    if (success.successType === "user-update") {
+      return setShowUpdateModal(false);
+    }
+  }, [success.successType]);
+
   return (
     <>
       {showUpdateModal && (
@@ -161,7 +174,7 @@ const Story = ({ userData }) => {
           </h2>
           <p>{userData.email}</p>
 
-          <div className="mb-2">
+          <div className="mb-2 d-lg-none d-md-none d-sm-block">
             {user && userData.username === user.username && (
               <a href="#" className={classes.edit_btn} onClick={onShowModal}>
                 Edit Profile

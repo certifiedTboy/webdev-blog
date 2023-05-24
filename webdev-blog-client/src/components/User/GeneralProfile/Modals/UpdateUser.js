@@ -1,16 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Modal, Button, Form } from "react-bootstrap";
+import {getUserByUsername} from "../../../../lib/APIs/UserApi/userApi"
 import { updateUser } from "../../../../lib/generaRequestRedux/requestActions";
 import ProfileModal from "./ProfileModal";
 
 const UpdateUser = ({ onShowModal, userData }) => {
-  const { isLoading, error } = useSelector((state) => state.request);
+  const [userFirstname, setUserFirstname] = useState()
+  const [userLastname, setUserLastname] = useState()
+  const { isLoading, error, success } = useSelector((state) => state.request);
+  const {user} = useSelector((state) => state.login)
   const dispatch = useDispatch();
 
   const [firstName, setFirstName] = useState(userData.firstName);
   const [lastName, setLastName] = useState(userData.lastName);
   const [about, setAbout] = useState(userData.about);
+
+
+  useEffect(() => {
+    const getCurrentUserData = async() => {
+      const response = await getUserByUsername(user.username)
+      if(response.message) {
+        setUserFirstname(response.data.firstName)
+        return setUserLastname(response.data.lastName)
+      }
+    }
+
+    getCurrentUserData()
+  }, [user])
 
   const firstNameChangeHandler = (event) => {
     setFirstName(event.target.value);
@@ -35,6 +52,8 @@ const UpdateUser = ({ onShowModal, userData }) => {
 
     dispatch(updateUser(updateData));
   };
+
+  
   return (
     <ProfileModal>
       <Modal.Header>
@@ -57,7 +76,7 @@ const UpdateUser = ({ onShowModal, userData }) => {
       )}
       <Form onSubmit={onUpdateUserDetails}>
         <Modal.Body>
-          <div className="form-group">
+         {!userFirstname && <div className="form-group">
             <Form.Label>First Name</Form.Label>
             <input
               onChange={firstNameChangeHandler}
@@ -65,9 +84,9 @@ const UpdateUser = ({ onShowModal, userData }) => {
               className="form-control"
               value={firstName}
             />
-          </div>
+          </div>}
 
-          <div className="form-group">
+          {!userLastname && <div className="form-group">
             <Form.Label>Last Name</Form.Label>
             <input
               onChange={lastNameChangeHandler}
@@ -75,7 +94,7 @@ const UpdateUser = ({ onShowModal, userData }) => {
               className="form-control"
               value={lastName}
             />
-          </div>
+          </div>}
 
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>About</Form.Label>

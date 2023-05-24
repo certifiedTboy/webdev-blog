@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
+import { useSelector } from "react-redux";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
@@ -17,6 +18,7 @@ import {
   updateBlog,
   publishBlog,
 } from "../../lib/APIs/BlogAPIs/BlogAPI";
+import {getUserByUsername} from "../../lib/APIs/UserApi/userApi"
 import { toolbar, hashtag, mention } from "./Options";
 import PreviewModal from "./PreviewModal";
 
@@ -24,6 +26,8 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./PostBuilder.css";
 
 const PostBuilder = () => {
+  const [userFirstname, setUserFirstname] = useState()
+  const [userLastname, setUserLastname] = useState()
   const [showModal, setShowModal] = useState(false);
   const [isSaved, setIsSaved] = useState(true);
   const [isPublished, setIsPublished] = useState(false);
@@ -42,7 +46,25 @@ const PostBuilder = () => {
   const params = useParams();
   const navigate = useNavigate();
 
+  const {user} = useSelector((state) => state.login)
+
   const { blogId } = params;
+
+ 
+  useEffect(() => {
+    const getCurrentUserData = async() => {
+      const response = await getUserByUsername(user.username)
+      if(response.message) {
+        setUserFirstname(response.data.firstName)
+        return setUserLastname(response.data.lastName)
+      }
+    }
+
+    getCurrentUserData()
+  }, [user])
+
+
+ 
 
   //blog input handlers
   const titleChangeHandler = (event) => {
@@ -104,6 +126,19 @@ const PostBuilder = () => {
 
   // Create blog handler
   const saveBlogAs = async (event) => {
+
+    if(!userFirstname || !userLastname){
+      return setErrorMessage("Update name in profile before creating blog")
+    }
+
+    if (
+      title.value.trim().length > 50 ||
+      
+      description.value.trim().length > 150
+    ) {
+      return setErrorMessage("Title or Description cannot be longer than 50 and 150 characters respectively");
+    }
+
     if (
       title.value === "" ||
       !category ||

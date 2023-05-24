@@ -47,18 +47,21 @@ const Team = () => {
               </h4>
               <ul className="social-link-team">
                 <li>
-                  <a href="#" target="_blank">
+                  <a
+                    href="https://web.facebook.com/infiniteIdeas12"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <i className="fab fa-facebook-f"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#" target="_blank">
+                  <a
+                    href="https://twitter.com/Certified_Tboy1"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <i className="fab fa-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" target="_blank">
-                    <i className="fab fa-instagram"></i>
                   </a>
                 </li>
               </ul>

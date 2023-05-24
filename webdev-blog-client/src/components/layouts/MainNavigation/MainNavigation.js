@@ -4,7 +4,7 @@ import { Link } from "react-scroll";
 import { NavLink } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { getUserProfilePicture } from "../../../lib/generaRequestRedux/profileActions";
-import { logOut } from "../../../lib/APIs/AuthApis/emailLogin";
+import { logOutUser } from "../../../lib/generaRequestRedux/requestActions";
 import webdevLogo from "../../../Assets/webdev_logo.jpg";
 import classes from "./MainNav.module.css";
 
@@ -38,6 +38,11 @@ const MainNavigation = ({ scrollTop }) => {
       }
     }
   }, [currentUserProfilePicture]);
+
+  const onLogOutUser = () => {
+    dispatch(logOutUser());
+    window.location.reload(false);
+  };
 
   return (
     <>
@@ -175,7 +180,7 @@ const MainNavigation = ({ scrollTop }) => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink className="dropdown-item" onClick={logOut}>
+                    <NavLink className="dropdown-item" onClick={onLogOutUser}>
                       Signout
                     </NavLink>
                   </li>
@@ -318,7 +323,7 @@ const MainNavigation = ({ scrollTop }) => {
                   </li>
 
                   <li>
-                    <NavLink className="dropdown-item" onClick={logOut}>
+                    <NavLink className="dropdown-item" onClick={onLogOutUser}>
                       Logout
                     </NavLink>
                   </li>
