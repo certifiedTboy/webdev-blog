@@ -3,7 +3,7 @@ import { AnimationOnScroll } from "react-animation-on-scroll";
 import { NavLink } from "react-router-dom";
 import "./Intro.css";
 
-const Banner = () => {
+const Intro = () => {
   return (
     <AnimationOnScroll
       animateIn="animate__pulse"
@@ -55,4 +55,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default Intro;

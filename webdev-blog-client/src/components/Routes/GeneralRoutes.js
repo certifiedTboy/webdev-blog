@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ProtectedRoutes, AdminProtectedRoutes } from "./ProtectedRoutes";
 import Loader from "../UI/Loader/Loader";
+import Hints from "../PostBuilder/Hints";
 
 const NotFoundPage = React.lazy(() => import("../Errors/NotFound.js"));
 const HomePage = React.lazy(() => import("../../pages/HomePage.js"));
@@ -85,6 +86,16 @@ const GeneralRoutes = () => {
           <ProtectedRoutes user={user}>
             <Suspense fallback={<Loader />}>
               <WriteArticle />{" "}
+            </Suspense>
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/write-article/hints"
+        element={
+          <ProtectedRoutes user={user}>
+            <Suspense fallback={<Loader />}>
+              <Hints />{" "}
             </Suspense>
           </ProtectedRoutes>
         }

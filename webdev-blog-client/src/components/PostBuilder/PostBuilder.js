@@ -255,13 +255,16 @@ const PostBuilder = () => {
         <div className="row">
           <div className="col-md-2 col-sm-1 col-12"></div>
           <div className="col-md-8 col-12 col-sm-10">
+            For better experience writing your blogs view{" "}
+            <a href="/write-article/hints" target="_blank">
+              Hints
+            </a>
             <header className="App-header">Write Article</header>
             {errorMessage && (
               <div class="alert alert-danger text-center" role="alert">
                 {errorMessage}
               </div>
             )}
-
             <div className="mb-3">
               <p className="d-inline preview-text">
                 <strong> Article preview </strong>
@@ -389,7 +392,6 @@ const PostBuilder = () => {
               ref={contentRef}
               value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
             />
-
             <Editor
               editorState={editorState}
               onEditorStateChange={setEditorState}
