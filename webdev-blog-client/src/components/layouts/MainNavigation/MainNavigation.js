@@ -179,6 +179,14 @@ const MainNavigation = ({ scrollTop }) => {
                       Profile
                     </NavLink>
                   </li>
+
+                  {user.userType === "Admin" && (
+                    <li>
+                      <NavLink className="dropdown-item" to="/admin">
+                        Admin Dashboard
+                      </NavLink>
+                    </li>
+                  )}
                   <li>
                     <NavLink className="dropdown-item" onClick={onLogOutUser}>
                       Signout
@@ -321,6 +329,14 @@ const MainNavigation = ({ scrollTop }) => {
                       Profile
                     </NavLink>
                   </li>
+
+                  {user.userType === "Admin" && (
+                    <li>
+                      <NavLink className="dropdown-item" to="/admin">
+                        Admin Dashboard
+                      </NavLink>
+                    </li>
+                  )}
 
                   <li>
                     <NavLink className="dropdown-item" onClick={onLogOutUser}>

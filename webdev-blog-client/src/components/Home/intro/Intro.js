@@ -25,7 +25,7 @@ const Banner = () => {
             </div>
             <div className="col-lg-6 col-md-12">
               <div className="abt-text">
-                <p className="top-sub">Since Year 1999</p>
+                <p className="top-sub">Since 2022</p>
                 <h2>
                   Wed-Dev <span className="orange-text">Blog</span>
                 </h2>

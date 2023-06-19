@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { GoogleOAuthProvider } from "@react-oauth/google";
 import Layout from "./components/layouts/Layout";
 import GeneralRoutes from "./components/Routes/GeneralRoutes";
 

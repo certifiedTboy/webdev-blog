@@ -21,6 +21,11 @@ const Layout = (props) => {
       title: "WebDev - About",
       metaDescription: "About Webdev blog",
     };
+  } else if (pathname === "/admin") {
+    titleData = {
+      title: "WebDev - Admin Page",
+      metaDescription: "Welcome to admin page",
+    };
   } else if (pathname === "/blogs") {
     titleData = {
       title: "WebDev - blogs",

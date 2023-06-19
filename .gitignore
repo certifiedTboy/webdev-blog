@@ -2,3 +2,4 @@
 /webdev-blog-server/dist
 /webdev-blog-server/.env
 /webdev-blog-client/node_modules
+/webdev-blog-server/__test__

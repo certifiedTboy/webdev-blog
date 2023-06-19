@@ -1,37 +1,81 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ProtectedRoutes from "./ProtectedRoutes";
-import HomePage from "../../pages/HomePage";
-import Blogs from "../../pages/Blogs";
-import Blog from "../../pages/Blog";
-import AboutPage from "../../pages/AboutPage";
-import NotFoundPage from "../../pages/NotFoundPage";
-import LoginPage from "../../pages/LoginPage";
-import ProfilePage from "../../pages/ProfilePage";
-import AdminPage from "../../pages/AdminPage";
-import WriteArticle from "../../pages/WriteArticle";
+import { ProtectedRoutes, AdminProtectedRoutes } from "./ProtectedRoutes";
+import Loader from "../UI/Loader/Loader";
 
-// const NotFoundPage = React.lazy(() => import("../Errors/NotFoundPage.js"));
-
+const NotFoundPage = React.lazy(() => import("../Errors/NotFound.js"));
+const HomePage = React.lazy(() => import("../../pages/HomePage.js"));
+const AboutPage = React.lazy(() => import("../../pages/AboutPage.js"));
+const LoginPage = React.lazy(() => import("../../pages/LoginPage.js"));
+const ProfilePage = React.lazy(() => import("../../pages/ProfilePage.js"));
+const AdminPage = React.lazy(() => import("../../pages/AdminPage.js"));
+const WriteArticle = React.lazy(() => import("../../pages/WriteArticle"));
+const Blogs = React.lazy(() => import("../../pages/Blogs.js"));
+const Blog = React.lazy(() => import("../../pages/Blog.js"));
 const GeneralRoutes = () => {
   const { user } = useSelector((state) => state.login);
   return (
     <Routes>
-      <Route path="*" element={<NotFoundPage />} />
+      <Route
+        path="*"
+        element={
+          <Suspense fallback={<Loader />}>
+            <NotFoundPage />
+          </Suspense>
+        }
+      />
       <Route path="/" element={<Navigate to="/home" replace={true} />} exact />
-      <Route path="/home" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/blogs" element={<Blogs />} />
-      <Route path="/w-d/:username" element={<ProfilePage />} />
+      <Route
+        path="/home"
+        element={
+          <Suspense fallback={<Loader />}>
+            <HomePage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <Suspense fallback={<Loader />}>
+            <LoginPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <Suspense fallback={<Loader />}>
+            <AboutPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/blogs"
+        element={
+          <Suspense fallback={<Loader />}>
+            {" "}
+            <Blogs />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/w-d/:username"
+        element={
+          <Suspense fallback={<Loader />}>
+            <ProfilePage />
+          </Suspense>
+        }
+      />
       <Route
         path="/admin"
         element={
-          <ProtectedRoutes user={user}>
-            {" "}
-            <AdminPage />{" "}
-          </ProtectedRoutes>
+          <AdminProtectedRoutes user={user}>
+            <Suspense fallback={<Loader />}>
+              {" "}
+              <AdminPage />{" "}
+            </Suspense>
+          </AdminProtectedRoutes>
         }
       />
 
@@ -39,21 +83,36 @@ const GeneralRoutes = () => {
         path="/write-article"
         element={
           <ProtectedRoutes user={user}>
-            <WriteArticle />{" "}
+            <Suspense fallback={<Loader />}>
+              <WriteArticle />{" "}
+            </Suspense>
           </ProtectedRoutes>
         }
       />
       <Route
         path="/auth/account/verify/:verificationData"
-        element={<LoginPage />}
+        element={
+          <Suspense fallback={<Loader />}>
+            <LoginPage />
+          </Suspense>
+        }
       />
 
-      <Route path="/blogs/:title" element={<Blog />} />
+      <Route
+        path="/blogs/:title"
+        element={
+          <Suspense fallback={<Loader />}>
+            <Blog />
+          </Suspense>
+        }
+      />
       <Route
         path="/blogs/edit/:blogId"
         element={
           <ProtectedRoutes user={user}>
-            <WriteArticle />{" "}
+            <Suspense fallback={<Loader />}>
+              <WriteArticle />{" "}
+            </Suspense>
           </ProtectedRoutes>
         }
       />

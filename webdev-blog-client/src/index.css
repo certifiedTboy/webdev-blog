@@ -254,11 +254,18 @@ a:focus {
   }
 }
 
+.content-wrapper {
+  background: #000;
+  padding: 1.875rem 1.75rem;
+  width: 100%;
+  flex-grow: 1;
+}
+
 
 .hero {
   position: relative;
   width: 100%;
-  margin-bottom: 45px;
+  /* margin-bottom: 45px; */
   padding: 120px 0 0 0;
   overflow: hidden;
   background:  #07212e;
@@ -1572,3 +1579,11 @@ border-color: transparent #dddddd transparent transparent;
       padding: 0 5px;
   }
 }
+
+
+
+
+
+
+
+

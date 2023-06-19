@@ -1,11 +1,22 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
-const ProtectedRoutes = ({ user, children }) => {
+export const ProtectedRoutes = ({ user, children }) => {
   if (!user) {
     return <Navigate to="/login" replace />;
   }
   return children;
 };
 
-export default ProtectedRoutes;
+export const AdminProtectedRoutes = ({ user, children }) => {
+  const navigate = useNavigate();
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (user.userType !== "Admin") {
+    return navigate(-1);
+  }
+
+  return children;
+};

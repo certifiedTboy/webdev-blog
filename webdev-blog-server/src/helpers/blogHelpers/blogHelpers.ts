@@ -91,8 +91,6 @@ class BlogHelpers {
             lastName: user.lastName,
           },
         };
-
-        console.log(blogData)
         const updatedBlog = await Blog.findByIdAndUpdate(blogId, blogData);
         if (!updatedBlog) {
           throw new UnprocessableError("something went wrong");

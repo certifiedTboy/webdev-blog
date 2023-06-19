@@ -12,7 +12,7 @@ const NotFound = () => {
                 <i className="far fa-sad-cry"></i>
                 <h1>Oops! Not Found.</h1>
                 <p>The page you requested for is not found.</p>
-                <a href="/home" className="boxed-btn">
+                <a href="/home" className="btn boxed-btn">
                   Back to Home
                 </a>
               </div>

@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import Banner from "../components/layouts/banner/Banner";
-import GeneraProfile from "../components/User/GeneralProfile/GeneralProfile";
+import Admin from "../components/Admin/Admin";
 
 const AdminPage = () => {
   return (
     <Fragment>
       <Banner />
-      <GeneraProfile />
+      <Admin />
     </Fragment>
   );
 };
