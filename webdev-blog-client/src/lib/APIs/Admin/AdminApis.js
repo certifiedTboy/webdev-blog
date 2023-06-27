@@ -48,6 +48,10 @@ export const getAllBlogs = async () => {
 };
 
 export const increaseVisits = async () => {
+  const increment = localStorage.getItem("increment");
+  if (increment) {
+    return;
+  }
   try {
     const response = await fetch(`${API_BASE_URL}/counter/increase-visits`, {
       method: "POST",
@@ -60,6 +64,7 @@ export const increaseVisits = async () => {
       return { error: "something went wrong" };
     }
 
+    localStorage.setItem("increment", true);
     return data.data;
   } catch (error) {
     return { error: "something went wrong" };

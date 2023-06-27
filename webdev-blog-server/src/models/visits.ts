@@ -4,13 +4,14 @@ const Schema = mongoose.Schema;
 const visitSchema = new Schema(
   {
     url: {
-        type:String, 
-        default:"localhost:3000"
+      type: String,
+      default: "localhost:3000",
     },
+    ipData: Array,
     counter: {
       type: Number,
       default: 0,
-    }
+    },
   },
   { timestamps: true }
 );

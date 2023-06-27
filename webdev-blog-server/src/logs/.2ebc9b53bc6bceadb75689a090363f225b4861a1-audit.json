@@ -34,6 +34,16 @@
             "date": 1687156779124,
             "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-06-19.log",
             "hash": "33d4bddef2bec0d4ab3cd96707760f044b4569170e2eab498c2949e4d2a0848f"
+        },
+        {
+            "date": 1687269868092,
+            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-06-20.log",
+            "hash": "9790cdb440c0dce92e19f2f2c6b9c03fe1b7ce3e8f8fb3590d26fcc72bd5cc85"
+        },
+        {
+            "date": 1687868260272,
+            "name": "C:\\Users\\user\\Desktop\\webdev-blog\\webdev-blog-server\\src\\logs\\application-2023-06-27.log",
+            "hash": "3b2eceb9d4632c1f9f9c02fb5b9b30fba023bccb506d9da150b2d9fe465bb72c"
         }
     ],
     "hashType": "sha256"

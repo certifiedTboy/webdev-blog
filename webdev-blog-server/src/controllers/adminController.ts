@@ -71,7 +71,7 @@ class AdminController {
       next: NextFunction
     ): Promise<any> {
       try {
-        const visits = await AdminHelpers.visitIncrease()
+        const visits = await AdminHelpers.visitIncrease(req.ip)
         ResponseHandler.ok(res, visits, "success");
       } catch (error) {
         next(error);
@@ -95,6 +95,7 @@ class AdminController {
       next: NextFunction
     ): Promise<any> {
       try {
+       
         const visits = await AdminHelpers.totalVisits()
         ResponseHandler.ok(res, visits, "success");
       } catch (error) {
