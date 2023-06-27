@@ -2,6 +2,7 @@ import User from "../../models/user";
 import Blog from "../../models/blog";
 import Visits from "../../models/visits";
 import axios from "axios";
+import config from "../../config/config";
 
 /**
  * @class AdminHelpers
@@ -36,14 +37,14 @@ class AdminHelpers {
    * @returns {Visits}
    */
     static async visitIncrease(userIp:string) {
-      const visits = await Visits.findOne({url:"localhost:3000"});
+      const visits = await Visits.findOne({url:config.FRONT_END_URL});
       const response = await this.getCountryFromIp(userIp)
 
       const country = response.geoplugin_countryName
       const state = response.geoplugin_regionName
       const city = response.geoplugin_city
 
-      const visitData = { url:"localhost:3000", counter: 1, ipData: {userIp, updatedAt: new Date(), country, state, city}  }
+      const visitData = { url:config.FRONT_END_URL, counter: 1, ipData: {userIp, updatedAt: new Date(), country, state, city}  }
       if(!visits){
         const newVisit = new Visits(visitData)
         await newVisit.save()

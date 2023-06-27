@@ -134,8 +134,7 @@ const Login = () => {
           {isLoading && <MiniLoader />}
 
           <form
-            onSubmit={!firstLogin ? loginUserHandler : createUserOnFirstLogin}
-          >
+            onSubmit={!firstLogin ? loginUserHandler : createUserOnFirstLogin}>
             <div className="form-group">
               <input
                 className="form-control"
@@ -163,7 +162,7 @@ const Login = () => {
             </div>
           </form>
           <div>
-            <a href="#">
+            <a href="/login">
               <GoogleLogo style={{ height: "2rem" }} />
               Login with Google
             </a>

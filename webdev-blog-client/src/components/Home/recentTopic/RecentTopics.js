@@ -5,6 +5,7 @@ import DescriptionPopUp from "../../Blogs/AllBlogs/DescriptionPopUp";
 import { getAllBlogs } from "../../../lib/APIs/BlogAPIs/BlogAPI";
 import MiniLoader from "../../UI/Loader/MiniLoader";
 import "./RecentTopic.css";
+import DataError from "../../Errors/DataError";
 
 const RecentTopic = () => {
   const [blogs, setBlogs] = useState([]);
@@ -25,6 +26,10 @@ const RecentTopic = () => {
       if (response.error) {
         setIsLoading(false);
         return setErrorMessage(response);
+      }
+
+      if (response.data.length === 0) {
+        setErrorMessage({ error: "No blog found!" });
       }
 
       setIsLoading(false);
@@ -65,14 +70,7 @@ const RecentTopic = () => {
           <div className="col-12 text-center">
             {isLoading && loadingData}
             {errorMessage.error && (
-              <>
-                <div class="alert alert-danger text-center" role="alert">
-                  {/* {errorMessage.error} */} Server still in Development
-                </div>
-                <a className="btn btn-warning" href="/home">
-                  Reload Page
-                </a>
-              </>
+              <DataError errorMessage={errorMessage.error} />
             )}
           </div>
           {!isLoading &&
@@ -81,8 +79,7 @@ const RecentTopic = () => {
                 <div className="col-lg-4 col-md-6" key={blog.id}>
                   <div
                     className="single-latest-news"
-                    onClick={() => setShowA({ state: false, key: "" })}
-                  >
+                    onClick={() => setShowA({ state: false, key: "" })}>
                     <div className="latest-news-bg news-bg-1"></div>
 
                     <div className="news-text-box">
@@ -113,8 +110,7 @@ const RecentTopic = () => {
                       <div
                         onMouseOver={() =>
                           setShowA({ state: true, key: blog._id.toString() })
-                        }
-                      >
+                        }>
                         <p className="excerpt">
                           {blog.description.substr(0, 38)}...
                         </p>
@@ -122,8 +118,7 @@ const RecentTopic = () => {
 
                       <NavLink
                         to={`/blogs/${blog.title}`}
-                        className="read-more-btn"
-                      >
+                        className="read-more-btn">
                         read more <i className="fas fa-angle-right"></i>
                       </NavLink>
                     </div>
@@ -133,7 +128,7 @@ const RecentTopic = () => {
             })}
         </div>
         <div className="row">
-          {!isLoading && errorMessage.error && (
+          {!isLoading && !errorMessage.error && (
             <div className="col-12 text-center">
               <NavLink to="/blogs" className="boxed-btn">
                 View More

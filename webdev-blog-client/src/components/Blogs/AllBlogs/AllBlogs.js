@@ -4,6 +4,7 @@ import Moment from "react-moment";
 import useLoadBlogs from "./useLoadBlogs";
 import DescriptionPopUp from "./DescriptionPopUp";
 import LoadingPlaceHolder from "./LoadingPlaceHolder";
+import DataError from "../../Errors/DataError";
 import "./AllBlogs.css";
 
 const AllBlogs = () => {
@@ -34,8 +35,7 @@ const AllBlogs = () => {
       <div key={blog._id}>
         <div
           className="single-latest-news"
-          onClick={() => setShowA({ state: false, key: "" })}
-        >
+          onClick={() => setShowA({ state: false, key: "" })}>
           <div className="latest-news-bg news-bg-1"></div>
 
           <div className="news-text-box">
@@ -77,16 +77,7 @@ const AllBlogs = () => {
       <div className="row">
         <div className="col-12">
           <div className="col-12 text-center">
-            {error.error && (
-              <>
-                <div className="alert alert-danger text-center" role="alert">
-                  {error.error}
-                </div>
-                <a className="btn btn-warning" href="/blogs">
-                  Reload Page
-                </a>
-              </>
-            )}
+            {error.error && <DataError errorMessage={error.error} />}
           </div>
         </div>
       </div>
@@ -97,9 +88,7 @@ const AllBlogs = () => {
           {blogContent} {!error.error && loading && <LoadingPlaceHolder />}
         </div>
         <div className="col-1 col-md-2 ">
-          <div className="d-none d-sm-none d-md-none d-lg-block">
-           
-          </div>
+          <div className="d-none d-sm-none d-md-none d-lg-block"></div>
         </div>
       </div>
     </div>

@@ -12,8 +12,13 @@ const useLoadBlogs = (pageNumber) => {
       setLoading(true);
       try {
         const response = await getAllBlogs(pageNumber);
+
         if (response.error) {
           return setError({ error: response.error });
+        }
+
+        if (response.data.length === 0) {
+          return setError({ error: "No blog found!" });
         }
 
         if (response.data.length === 0) {

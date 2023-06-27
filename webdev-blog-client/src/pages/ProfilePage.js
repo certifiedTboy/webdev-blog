@@ -6,7 +6,6 @@ import { increaseVisits } from "../lib/APIs/Admin/AdminApis";
 import { requestFailed } from "../lib/generaRequestRedux/requestSlice";
 import Banner from "../components/layouts/banner/Banner";
 import GeneraProfile from "../components/User/GeneralProfile/GeneralProfile";
-import Loader from "../components/UI/Loader/Loader";
 
 const ProfilePage = () => {
   const [userData, setUserData] = useState({});

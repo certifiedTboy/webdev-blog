@@ -16,7 +16,6 @@ const Admin = () => {
   const [showTotalBlogs, setShowTotalBlogs] = useState(false);
 
   const toggleAdmin = (component) => {
-    console.log(component);
     if (component === "DASHBOARD") {
       setShowDashboard(true);
       setShowUserActivities(false);

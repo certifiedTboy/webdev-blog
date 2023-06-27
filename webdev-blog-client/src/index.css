@@ -265,7 +265,7 @@ a:focus {
 .hero {
   position: relative;
   width: 100%;
-  /* margin-bottom: 45px; */
+  margin-bottom: 45px;
   padding: 120px 0 0 0;
   overflow: hidden;
   background:  #07212e;
